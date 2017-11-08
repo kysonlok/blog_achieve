@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="OpenWrt,LEDE," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="PresentationOpenWrt 缺省控制 DHCP 的进程如下：    udhcpc - DHCP IPV4 client   odhcp6c - DHCP IPV6 client   DNSmasq - DHCP IPV4 server   odhcpd - DHCP IPV6 server">
+<meta name="keywords" content="OpenWrt,LEDE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenWrt DHCP - Udhcpc">
+<meta property="og:url" content="http://yoursite.com/posts/4d5e1cf/index.html">
+<meta property="og:site_name" content="KYSON | HOME">
+<meta property="og:description" content="PresentationOpenWrt 缺省控制 DHCP 的进程如下：    udhcpc - DHCP IPV4 client   odhcp6c - DHCP IPV6 client   DNSmasq - DHCP IPV4 server   odhcpd - DHCP IPV6 server">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-08T01:30:47.385Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OpenWrt DHCP - Udhcpc">
+<meta name="twitter:description" content="PresentationOpenWrt 缺省控制 DHCP 的进程如下：    udhcpc - DHCP IPV4 client   odhcp6c - DHCP IPV6 client   DNSmasq - DHCP IPV4 server   odhcpd - DHCP IPV6 server">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/posts/4d5e1cf/"/>
+
+
+
+
+
+  <title>OpenWrt DHCP - Udhcpc | KYSON | HOME</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KYSON | HOME</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/posts/4d5e1cf/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kyson Lok">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KYSON | HOME">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">OpenWrt DHCP - Udhcpc</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-06T13:19:06+08:00">
+                2017-11-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OpenWrt/" itemprop="url" rel="index">
+                    <span itemprop="name">OpenWrt</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Presentation"><a href="#Presentation" class="headerlink" title="Presentation"></a>Presentation</h1><p>OpenWrt 缺省控制 DHCP 的进程如下：  </p>
+<ul>
+<li>udhcpc - DHCP IPV4 client  </li>
+<li>odhcp6c - DHCP IPV6 client  </li>
+<li>DNSmasq - DHCP IPV4 server  </li>
+<li>odhcpd - DHCP IPV6 server  <a id="more"></a>
+</li>
+</ul>
+<p>使用 ps 命令查看 udhcpc 运行参数情况：  </p>
+<pre><code class="bash"><span class="comment"># ps -w | grep udhcpc</span>
+</code></pre>
+<p>udhcpc 运行的参数类似这样：  </p>
+<pre><code class="bash">2339 root      1204 S    udhcpc -p /var/run/udhcpc-eth0.2.pid -s /lib/netifd/dhcp.script -f -t 0 -i eth0.2 -x hostname GL-MT300N-V  
+2674 root      1204 S    udhcpc -p /var/run/udhcpc-apcli0.pid -s /lib/netifd/dhcp.script -f -t 0 -i apcli0 -C -O 121
+</code></pre>
+<p>对于我的路由器，当前系统 apcli0 和 eth0.2 网络接口使用了 DHCP 协议，当有 DHCP 事件被触发，会执行 <code>/lib/netifd/dhcp.script</code> 脚本。  </p>
+<h1 id="Udhcpc-startup"><a href="#Udhcpc-startup" class="headerlink" title="Udhcpc startup"></a>Udhcpc startup</h1><p>通过 grep 搜索，发现启动 udhcpc 的代码在 <code>/lib/netifd/proto/dhcp.sh</code> 脚本中，proto_dhcp_setup 函数代码段：  </p>
+<pre><code class="bash">proto_run_command <span class="string">"<span class="variable">$config</span>"</span> udhcpc \
+         -p /var/run/udhcpc-<span class="variable">$iface</span>.pid \
+         -s /lib/netifd/dhcp.script \
+         -f -t 0 -i <span class="string">"<span class="variable">$iface</span>"</span> \
+         <span class="variable">${ipaddr:+-r $ipaddr}</span> \
+         <span class="variable">${hostname:+-x "hostname:$hostname"}</span> \
+         <span class="variable">${vendorid:+-V "$vendorid"}</span> \
+         <span class="variable">$clientid</span> <span class="variable">$broadcast</span> <span class="variable">$release</span> <span class="variable">$dhcpopts</span>
+</code></pre>
+<p>这里调用了 proto_run_command 函数，同样地，搜索到它是 <code>/lib/netifd/netifd-proto.sh</code> 提供的脚本 api，代码段：  </p>
+<pre><code class="bash"><span class="function"><span class="title">proto_run_command</span></span>() {
+    <span class="built_in">local</span> interface=<span class="string">"<span class="variable">$1</span>"</span>; <span class="built_in">shift</span>
+
+    json_init
+    json_add_int action 1
+    json_add_array <span class="built_in">command</span>
+    <span class="keyword">while</span> [ <span class="variable">$#</span> -gt 0 ]; <span class="keyword">do</span>
+        json_add_string <span class="string">""</span> <span class="string">"<span class="variable">$1</span>"</span>
+        <span class="built_in">shift</span>
+    <span class="keyword">done</span>
+    json_close_array
+    [ -n <span class="string">"<span class="variable">$_EXPORT_VARS</span>"</span> ] &amp;&amp; {
+        json_add_array env
+        <span class="keyword">for</span> var <span class="keyword">in</span> <span class="variable">$_EXPORT_VARS</span>; <span class="keyword">do</span>
+            <span class="built_in">eval</span> <span class="string">"json_add_string \"\" \"\${<span class="variable">$var</span>}\""</span>
+        <span class="keyword">done</span>
+        json_close_array
+    }
+    _proto_notify <span class="string">"<span class="variable">$interface</span>"</span>
+}
+</code></pre>
+<p>proto_run_command 函数就是初始化了json object，往 json object 添加了 string 类型的 action 和 array 类型的 command 字段，把传进来的参数全部填充到 command array中，最后调用了_proto_notify。  </p>
+<p>_proto_notify 函数代码段：  </p>
+<pre><code class="bash"><span class="function">_proto_notify</span>() {
+    <span class="built_in">local</span> interface=<span class="string">"<span class="variable">$1</span>"</span>
+    <span class="built_in">local</span> options=<span class="string">"<span class="variable">$2</span>"</span>
+    json_add_string <span class="string">"interface"</span> <span class="string">"<span class="variable">$interface</span>"</span>
+    ubus <span class="variable">$options</span> call network.interface notify_proto <span class="string">"<span class="variable">$(json_dump)</span>"</span>
+}
+</code></pre>
+<p>由此可以看出，最终使用 ubus 把 json 格式的内容发送到 ubusd 处理，network.interface 对象的 notify_proto 方法。  </p>
+<p>我们可以通过命令行查看 network.interface 对象注册了哪些方法以及怎么使用：  </p>
+<pre><code class="bash"><span class="comment"># ubus -v list network.interface</span>
+</code></pre>
+<p>notify_proto 方法在背后做了哪些工作呢？我们可以通过 netifd 源码来寻找答案。notify_proto 的定义在 ubus.c 文件中，netifd 源码：  </p>
+<pre><code class="bash"><span class="comment"># git clone git://git.openwrt.org/project/netifd.git</span>
+</code></pre>
+<pre><code class="c"><span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">ubus_method</span> <span class="title">iface_object_methods</span>[] = {</span>
+    { .name = <span class="string">"up"</span>, .handler = netifd_handle_up },
+    { .name = <span class="string">"down"</span>, .handler = netifd_handle_down },
+    { .name = <span class="string">"renew"</span>, .handler = netifd_handle_renew },
+    { .name = <span class="string">"status"</span>, .handler = netifd_handle_status },
+    { .name = <span class="string">"prepare"</span>, .handler = netifd_handle_iface_prepare },
+    { .name = <span class="string">"dump"</span>, .handler = netifd_handle_dump },
+    UBUS_METHOD(<span class="string">"add_device"</span>, netifd_iface_handle_device, dev_link_policy ),
+    UBUS_METHOD(<span class="string">"remove_device"</span>, netifd_iface_handle_device, dev_link_policy ),
+    { .name = <span class="string">"notify_proto"</span>, .handler = netifd_iface_notify_proto },
+    { .name = <span class="string">"remove"</span>, .handler = netifd_iface_remove },
+    { .name = <span class="string">"set_data"</span>, .handler = netifd_handle_set_data },
+};
+</code></pre>
+<p>通过跟踪代码，调用顺序大致是这样：  </p>
+<pre><code class="bash">netifd_iface_notify_proto --–&gt;
+  iface-&gt;proto-&gt;notify ---&gt;  
+    回调的注册：
+    state-&gt;proto.notify = proto_shell_notify; ---&gt;
+      proto_shell_run_command ---&gt;  
+        netifd_start_process ---&gt;  
+          创建子进程调用execvp执行脚本命令
+</code></pre>
+<p>至此，我们可以知道，刚开始分析的 udhcpc 作为脚本 api proto_run_command 的传入参数，最终通过 ubus 通讯，由 netifd 执行 execvp 带起 udhcpc。  </p>
+<h1 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h1><p>以重新获取 wan 口的 ip 地址为例演示上面的过程，<code>/lib/netifd/proto/dhcp.sh</code> 的 proto_dhcp_renew 函数可以重新租约 ip 地址，proto_dhcp_renew 函数代码段：  </p>
+<pre><code class="bash"><span class="function"><span class="title">proto_dhcp_renew</span></span>() {
+    <span class="built_in">local</span> interface=<span class="string">"<span class="variable">$1</span>"</span>
+    <span class="comment"># SIGUSR1 forces udhcpc to renew its lease</span>
+    <span class="built_in">local</span> sigusr1=<span class="string">"<span class="variable">$(kill -l SIGUSR1)</span>"</span>
+    [ -n <span class="string">"<span class="variable">$sigusr1</span>"</span> ] &amp;&amp; proto_kill_command <span class="string">"<span class="variable">$interface</span>"</span> <span class="variable">$sigusr1</span>
+}
+</code></pre>
+<p>proto_dhcp_renew 函数需要接收一个 interface( wan | wan6 | lan | wwan | … ) 参数，重新租约 wan 口的 ip：  </p>
+<pre><code class="bash">proto_dhcp_renew <span class="string">"wan"</span>
+</code></pre>
+<font color="#FF0000">注意：这里只是为了演示过程，实际上不能直接调用的。</font>  
+
+<p>proto_dhcp_renew 调用了 proto_kill_command，代码段：  </p>
+<pre><code class="bash"><span class="function">_proto_notify</span>() {
+    <span class="built_in">local</span> interface=<span class="string">"<span class="variable">$1</span>"</span>
+    <span class="built_in">local</span> options=<span class="string">"<span class="variable">$2</span>"</span>
+    json_add_string <span class="string">"interface"</span> <span class="string">"<span class="variable">$interface</span>"</span>
+    ubus <span class="variable">$options</span> call network.interface notify_proto <span class="string">"<span class="variable">$(json_dump)</span>"</span>  
+} 
+
+<span class="function"><span class="title">proto_kill_command</span></span>() {
+        <span class="built_in">local</span> interface=<span class="string">"<span class="variable">$1</span>"</span>; <span class="built_in">shift</span>
+
+        json_init                                          
+        json_add_int action 2
+        [ -n <span class="string">"<span class="variable">$1</span>"</span> ] &amp;&amp; json_add_int signal <span class="string">"<span class="variable">$1</span>"</span>
+        _proto_notify <span class="string">"<span class="variable">$interface</span>"</span>
+}
+</code></pre>
+<p>前面分析可知，这里是构造了一个 json 格式消息，然后通过调用 _proto_notify 把消息发送到 ubusd 处理，这里的 json_dump 内容为：  </p>
+<pre><code class="json">{
+    <span class="attr">"interface"</span>: <span class="string">"wan"</span>,
+    <span class="attr">"action"</span>: <span class="number">2</span>,
+    <span class="attr">"signal"</span>: <span class="number">16</span>
+}
+</code></pre>
+<p><code>proto_dhcp_renew &quot;wan&quot;</code> 其实等价于命令行执行：  </p>
+<pre><code class="bash"><span class="comment"># ubus call network.interface notify_proto '{"action":2,"signal":16,"interface":"wan"}'</span>
+</code></pre>
+<h1 id="Troubleshoot"><a href="#Troubleshoot" class="headerlink" title="Troubleshoot"></a>Troubleshoot</h1><p>前面提到入口在 <code>/lib/netifd/proto/dhcp.sh</code> 脚本，我们分析一下这个脚本是怎样被执行的？  </p>
+<p>netifd 主程序是 main.c，netifd 在启动的时候，调用了 proto_shell_init 函数。proto_shell_init 的实现代码以及分析注释：  </p>
+<pre><code class="c"><span class="function"><span class="keyword">void</span> <span class="title">proto_shell_init</span><span class="params">(<span class="keyword">void</span>)</span></span>
+<span class="function"></span>{
+    <span class="comment">/* 获取 /lib/netifd/proto 文件描述符 */</span>
+    proto_fd = netifd_open_subdir(<span class="string">"proto"</span>);
+    <span class="keyword">if</span> (proto_fd &lt; <span class="number">0</span>)
+        <span class="keyword">return</span>;
+
+    netifd_init_script_handlers(proto_fd, proto_shell_add_handler);
+}
+</code></pre>
+<p>netifd_init_script_handlers 的实现代码：  </p>
+<pre><code class="c"><span class="function"><span class="keyword">void</span> <span class="title">netifd_init_script_handlers</span><span class="params">(<span class="keyword">int</span> dir_fd, script_dump_cb cb)</span></span>
+<span class="function"></span>{
+    <span class="keyword">glob_t</span> g;
+    <span class="keyword">int</span> i, prev_fd;
+
+    prev_fd = netifd_dir_push(dir_fd);
+    <span class="keyword">if</span> (glob(<span class="string">"./*.sh"</span>, <span class="number">0</span>, <span class="literal">NULL</span>, &amp;g))
+        <span class="keyword">return</span>;
+
+    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; g.gl_pathc; i++)
+        netifd_parse_script_handler(g.gl_pathv[i], cb);
+    netifd_dir_pop(prev_fd);
+
+    globfree(&amp;g);
+}
+</code></pre>
+<p><code>netifd_parse_script_handler</code> 函数执行 <code>/lib/netifd/proto</code> 目录下的所有.sh文件，dump 作为传入参数。对于dhcp.sh，在脚本执行：  </p>
+<pre><code class="bash">init_proto <span class="string">"dump"</span>
+add_protocol dhcp
+</code></pre>
+<p>其中，init_proto 和 add_protocol 为 netifd-proto.sh 的函数接口。  </p>
+<pre><code class="bash">add_protocol ---&gt;
+  proto_dhcp_init_config
+</code></pre>
+<p>并且构造一个 json 格式消息作为返回，netifd 的 <code>netifd_parse_script_handler</code> 函数将执行 dhcp.sh 脚本的返回值封装成 json 对象。  </p>
+<pre><code class="bash">netifd_init_script_handlers ---&gt;
+  netifd_parse_script_handler ---&gt;
+    netifd_init_script_handler --&gt;
+      proto_shell_add_handler ---&gt;
+        add_proto_handler ---&gt;
+          avl_insert
+</code></pre>
+<p><code>proto_shell_add_handler</code> 是 <code>netifd_init_script_handlers</code> 注册的回调函数，在 <code>netifd_init_script_handler</code> 被调用。<code>proto_shell_add_handler</code> 函数把 json 解析到 struct proto_handler 对应的成员变量中，然后把它插入到 avl 树中。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/OpenWrt/" rel="tag"><i class="fa fa-tag"></i> OpenWrt</a>
+          
+            <a href="/tags/LEDE/" rel="tag"><i class="fa fa-tag"></i> LEDE</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/7fbfd015/" rel="next" title="OpenWrt - Build">
+                <i class="fa fa-chevron-left"></i> OpenWrt - Build
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/f502ce40/" rel="prev" title="OpenWrt Core - Initd">
+                OpenWrt Core - Initd <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="Kyson Lok" />
+            
+              <p class="site-author-name" itemprop="name">Kyson Lok</p>
+              <p class="site-description motion-element" itemprop="description">Do not believe in fate!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/kysonlok" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:kysonlok@gmail.com" target="_blank" title="Email">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>Email</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Presentation"><span class="nav-number">1.</span> <span class="nav-text">Presentation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Udhcpc-startup"><span class="nav-number">2.</span> <span class="nav-text">Udhcpc startup</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Example"><span class="nav-number">3.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Troubleshoot"><span class="nav-number">4.</span> <span class="nav-text">Troubleshoot</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kyson Lok</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+-->
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+</body>
+</html>
