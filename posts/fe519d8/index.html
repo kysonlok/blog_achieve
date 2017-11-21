@@ -83,7 +83,7 @@
 
 
 
-  <meta name="keywords" content="OpenWrt,LEDE," />
+  <meta name="keywords" content="git," />
 
 
 
@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="How feeds worksFeeds Command optionfeeds 命令选项：   my %commands = (     &amp;apos;list&amp;apos; =&amp;gt; \&amp;amp;list,     &amp;apos;update&amp;apos; =&amp;gt; \&amp;amp;update,     &amp;apos;install&amp;apos; =&amp;gt; \&amp;amp;install,     &amp;ap">
-<meta name="keywords" content="OpenWrt,LEDE">
+<meta name="description" content="Git 嵌套Overview我们的工程可能需要用到第三方的库，以前我们一般都是通过引用动态库或者直接拷贝依赖库的源码到当前工程源码树，这样很难保证所有的客户端使用同一版本的动态库，并且一旦修改了库的内容，我们没有办法把新的 changes 合并进来。Git 提供了 submodules 解决了这个问题，它允许 git repository 嵌套子 git repository。">
+<meta name="keywords" content="git">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OpenWrt - Feeds Script">
-<meta property="og:url" content="http://yoursite.com/posts/6da41d62/index.html">
+<meta property="og:title" content="Git Tools - Submodules">
+<meta property="og:url" content="http://yoursite.com/posts/fe519d8/index.html">
 <meta property="og:site_name" content="KYSON | HOME">
-<meta property="og:description" content="How feeds worksFeeds Command optionfeeds 命令选项：   my %commands = (     &amp;apos;list&amp;apos; =&amp;gt; \&amp;amp;list,     &amp;apos;update&amp;apos; =&amp;gt; \&amp;amp;update,     &amp;apos;install&amp;apos; =&amp;gt; \&amp;amp;install,     &amp;ap">
+<meta property="og:description" content="Git 嵌套Overview我们的工程可能需要用到第三方的库，以前我们一般都是通过引用动态库或者直接拷贝依赖库的源码到当前工程源码树，这样很难保证所有的客户端使用同一版本的动态库，并且一旦修改了库的内容，我们没有办法把新的 changes 合并进来。Git 提供了 submodules 解决了这个问题，它允许 git repository 嵌套子 git repository。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-17T10:02:41.096Z">
+<meta property="og:updated_time" content="2017-11-21T06:20:48.352Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OpenWrt - Feeds Script">
-<meta name="twitter:description" content="How feeds worksFeeds Command optionfeeds 命令选项：   my %commands = (     &amp;apos;list&amp;apos; =&amp;gt; \&amp;amp;list,     &amp;apos;update&amp;apos; =&amp;gt; \&amp;amp;update,     &amp;apos;install&amp;apos; =&amp;gt; \&amp;amp;install,     &amp;ap">
+<meta name="twitter:title" content="Git Tools - Submodules">
+<meta name="twitter:description" content="Git 嵌套Overview我们的工程可能需要用到第三方的库，以前我们一般都是通过引用动态库或者直接拷贝依赖库的源码到当前工程源码树，这样很难保证所有的客户端使用同一版本的动态库，并且一旦修改了库的内容，我们没有办法把新的 changes 合并进来。Git 提供了 submodules 解决了这个问题，它允许 git repository 嵌套子 git repository。">
 
 
 
@@ -135,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/posts/6da41d62/"/>
+  <link rel="canonical" href="http://yoursite.com/posts/fe519d8/"/>
 
 
 
 
 
-  <title>OpenWrt - Feeds Script | KYSON | HOME</title>
+  <title>Git Tools - Submodules | KYSON | HOME</title>
   
 
 
@@ -302,7 +302,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/posts/6da41d62/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/posts/fe519d8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Kyson Lok">
@@ -319,7 +319,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">OpenWrt - Feeds Script</h1>
+          <h1 class="post-title" itemprop="name headline">Git Tools - Submodules</h1>
         
 
         <div class="post-meta">
@@ -331,8 +331,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-17T18:00:44+08:00">
-                2017-11-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-21T14:19:12+08:00">
+                2017-11-21
               </time>
             
 
@@ -354,8 +354,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OpenWrt/" itemprop="url" rel="index">
-                    <span itemprop="name">OpenWrt</span>
+                  <a href="/categories/Git/" itemprop="url" rel="index">
+                    <span itemprop="name">Git</span>
                   </a>
                 </span>
 
@@ -391,280 +391,100 @@
       
 
       
-        <h1 id="How-feeds-works"><a href="#How-feeds-works" class="headerlink" title="How feeds works"></a>How feeds works</h1><h2 id="Feeds-Command-option"><a href="#Feeds-Command-option" class="headerlink" title="Feeds Command option"></a>Feeds Command option</h2><p>feeds 命令选项：  </p>
-<pre><code>my %commands = (
-    &apos;list&apos; =&gt; \&amp;list,
-    &apos;update&apos; =&gt; \&amp;update,
-    &apos;install&apos; =&gt; \&amp;install,
-    &apos;search&apos; =&gt; \&amp;search,
-    &apos;uninstall&apos; =&gt; \&amp;uninstall,
-    &apos;feed_config&apos; =&gt; \&amp;feed_config,
-    &apos;clean&apos; =&gt; sub {
-        system(&quot;rm -rf ./feeds ./package/feeds&quot;);
-    }
-);
-</code></pre><a id="more"></a>
-<h2 id="Feeds-Update"><a href="#Feeds-Update" class="headerlink" title="Feeds Update"></a>Feeds Update</h2><pre><code>./scripts/feeds update -a
-</code></pre><p>update 函数代码段：  </p>
-<pre><code class="perl"><span class="function"><span class="keyword">sub</span> <span class="title">update</span> </span>{
-    <span class="comment"># 解析参数 -a | -i | -f</span>
-    <span class="comment"># -a : Update all feeds listed within feeds.conf. Otherwise the specified feeds will be updated.</span>
-    <span class="comment"># -i : Recreate the index only. No feed update from repository is performed.</span>
-    <span class="comment"># -f : Force updating feeds even if there are changed, uncommitted files.</span>
+        <h1 id="Git-嵌套"><a href="#Git-嵌套" class="headerlink" title="Git 嵌套"></a>Git 嵌套</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>我们的工程可能需要用到第三方的库，以前我们一般都是通过引用动态库或者直接拷贝依赖库的源码到当前工程源码树，这样很难保证所有的客户端使用同一版本的动态库，并且一旦修改了库的内容，我们没有办法把新的 changes 合并进来。Git 提供了 submodules 解决了这个问题，它允许 git repository 嵌套子 git repository。  </p>
+<a id="more"></a>
+<h2 id="Starting-with-Submodules"><a href="#Starting-with-Submodules" class="headerlink" title="Starting with Submodules"></a>Starting with Submodules</h2><p>为了方便演示，我在内部 git server 创建了连个 demo repository：  </p>
+<pre><code>$ git@192.168.16.16:luoweilong/main_test.git
+$ git@192.168.16.16:luoweilong/test.git
+</code></pre><p>git submodule 命令手册：  </p>
+<pre><code>kyson@gl-inet:~$ git submodule help
+usage: git submodule [--quiet] add [-b &lt;branch&gt;] [-f|--force] [--name &lt;name&gt;] [--reference &lt;repository&gt;] [--] &lt;repository&gt; [&lt;path&gt;]
+   or: git submodule [--quiet] status [--cached] [--recursive] [--] [&lt;path&gt;...]
+   or: git submodule [--quiet] init [--] [&lt;path&gt;...]
+   or: git submodule [--quiet] deinit [-f|--force] [--] &lt;path&gt;...
+   or: git submodule [--quiet] update [--init] [--remote] [-N|--no-fetch] [-f|--force] [--checkout|--merge|--rebase] [--reference &lt;repository&gt;] [--recursive] [--] [&lt;path&gt;...]
+   or: git submodule [--quiet] summary [--cached|--files] [--summary-limit &lt;n&gt;] [commit] [--] [&lt;path&gt;...]
+   or: git submodule [--quiet] foreach [--recursive] &lt;command&gt;
+   or: git submodule [--quiet] sync [--recursive] [--] [&lt;path&gt;...]
+</code></pre><p>我们可以使用 <code>git submodule add</code> 命令在已存的 git repo 添加 submodule，如我在 main_test 工程添加 test 模块：  </p>
+<pre><code>$ git submodule add git@192.168.16.16:luoweilong/test.git
+Cloning into &apos;test&apos;...
+remote: Counting objects: 3, done.
+remote: Total 3 (delta 0), reused 0 (delta 0)
+Receiving objects: 100% (3/3), done.
+Checking connectivity... done.
+</code></pre><p>缺省情况，submodules 会以 repo 名作为子工程目录名，这个跟 git clone是一样的，后面可以跟个目录名参数。添加子模块后，会把信息写到 .gitmodules 文件，内容如下：  </p>
+<pre><code>$ cat .gitmodules 
+[submodule &quot;test&quot;]
+    path = test
+    url = git@192.168.16.16:luoweilong/test.git
+</code></pre><p>Note: Since the URL in the .gitmodules file is what other people will first try to clone/fetch from, make sure to use a URL that they can access if possible. For example, if you use a different URL to push to than others would to pull from, use the one that others have access to. You can overwrite this value locally with git config submodule.DbConnector.url PRIVATE_URL for your own use. When applicable, a relative URL can be helpful.  </p>
+<p>提交 commit：  </p>
+<pre><code>$ git add .
+$ git status 
+On branch master
+Your branch is up-to-date with &apos;origin/master&apos;.
+Changes to be committed:
+  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
 
-    <span class="comment"># 如果指定 —i,不使能 update</span>
-    $perform_update=<span class="number">0</span>;
+    new file:   .gitmodules
+    new file:   test
 
-    <span class="comment"># 判断 feeds 目录是否存在，不存在创建</span>
-    -d <span class="string">"feeds"</span> <span class="keyword">or</span> <span class="keyword">do</span> {
-        <span class="keyword">mkdir</span> <span class="string">"feeds"</span> <span class="keyword">or</span> <span class="keyword">die</span> <span class="string">"Unable to create the feeds directory"</span>;
-    };
+$git commit -m &quot;add submodules&quot;
+[master f95257a] add submodules
+ 2 files changed, 4 insertions(+)
+ create mode 100644 .gitmodules
+ create mode 160000 test
 
-    <span class="comment"># 没有指定参数，或者参数为 -a，更新所有 feeds，否则根据给定的 feed_name 更新</span>
-    <span class="keyword">if</span> ( ($#ARGV == -<span class="number">1</span>) <span class="keyword">or</span> $opts<span class="string">{a}</span>) {
-        <span class="keyword">foreach</span> <span class="keyword">my</span> $feed (@feeds) {
-            <span class="keyword">my</span> ($type, $name, $src) = @$feed;
-            update_feed($type, $name, $src, $perform_update, $opts<span class="string">{f}</span>) == <span class="number">0</span> <span class="keyword">or</span> $failed=<span class="number">1</span>;
-        }
-    } <span class="keyword">else</span> {
-        <span class="keyword">while</span> ($feed_name = <span class="keyword">shift</span> @ARGV) {
-            <span class="keyword">foreach</span> <span class="keyword">my</span> $feed (@feeds) {
-                <span class="keyword">my</span> ($type, $name, $src) = @$feed;
-                <span class="keyword">if</span>($feed_name <span class="keyword">ne</span> $name) {
-                    <span class="keyword">next</span>;
-                }
-                update_feed($type, $name, $src, $perform_update, $opts<span class="string">{f}</span>) == <span class="number">0</span> <span class="keyword">or</span> $failed=<span class="number">1</span>;
-            }
-        }
-    }
+$ git push -u origin master 
+Counting objects: 3, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 373 bytes | 0 bytes/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To git@192.168.16.16:luoweilong/main_test.git
+   017982e..f95257a  master -&gt; master
+Branch master set up to track remote branch master from origin.
+</code></pre><h2 id="Cloning-a-Project-with-Submodules"><a href="#Cloning-a-Project-with-Submodules" class="headerlink" title="Cloning a Project with Submodules"></a>Cloning a Project with Submodules</h2><p>克隆带 submodules 的工程到本地：  </p>
+<pre><code>$ git clone git@192.168.16.16:luoweilong/main_test.git
+Cloning into &apos;main_test&apos;...
+remote: Counting objects: 6, done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 6 (delta 0), reused 0 (delta 0)
+Receiving objects: 100% (6/6), done.
+Checking connectivity... done.
 
-    <span class="comment"># 如果没有 .config，创建 .config</span>
-    refresh_config();
-}
-</code></pre>
-<p>update_feed 函数代码段：  </p>
-<pre><code class="perl"><span class="function"><span class="keyword">sub</span> <span class="title">update_feed</span>($$$$$) </span>{
-    <span class="comment"># 提取参数</span>
-    <span class="keyword">my</span> $type=<span class="keyword">shift</span>;
-    <span class="keyword">my</span> $name=<span class="keyword">shift</span>;
-    <span class="keyword">my</span> $src=<span class="keyword">shift</span>;
-    <span class="keyword">my</span> $perform_update=<span class="keyword">shift</span>;
-    <span class="keyword">my</span> $force_update=update_location( $name, <span class="string">"@$src"</span> ); <span class="comment"># 创建./feeds/xxx.tmp/location</span>
+$ cd main_test/
+$ ll
+total 20
+drwxrwxr-x  4 kyson kyson 4096 11月 21 12:38 ./
+drwxrwxrwt 72 root  root  4096 11月 21 12:38 ../
+drwxrwxr-x  8 kyson kyson 4096 11月 21 12:38 .git/
+-rw-rw-r--  1 kyson kyson   77 11月 21 12:38 .gitmodules
+-rw-rw-r--  1 kyson kyson    0 11月 21 12:38 README
+drwxrwxr-x  2 kyson kyson 4096 11月 21 12:38 test/
+</code></pre><p>我们可以看到 test 目录，但是这个目录空的，需要执行 <code>git submodule init</code> 初始化本地配置文件 和 <code>git submodule update</code> 获取所有的数据和切换到合适的 commit。  </p>
+<pre><code>$ git submodule init
+Submodule &apos;test&apos; (git@192.168.16.16:luoweilong/test.git) registered for path &apos;test&apos;
 
-    <span class="comment"># 检测是否支持 feeds.conf.default 给定的类型[git-src|svn|...]</span>
-    $update_method{$type} <span class="keyword">or</span> <span class="keyword">do</span> {
-        <span class="keyword">warn</span> <span class="string">"Unknown type '$type' in feed $name\n"</span>;
-        <span class="keyword">return</span> <span class="number">1</span>;
-    };
+$ git submodule update
+Cloning into &apos;test&apos;...
+remote: Counting objects: 3, done.
+remote: Total 3 (delta 0), reused 0 (delta 0)
+Receiving objects: 100% (3/3), done.
+Checking connectivity... done.
+Submodule path &apos;test&apos;: checked out &apos;3d9f6ed6d00a2767307505710e72298ec078afdf&apos;
 
-    <span class="comment"># 如果没有通过 -i 不使能 update，则会调用 update_feed_via()，克隆repo</span>
-    <span class="keyword">foreach</span> <span class="keyword">my</span> $feedsrc (@$src) {
-        <span class="keyword">warn</span> <span class="string">"Updating feed '$name' from '$feedsrc' ...\n"</span>;
-        <span class="keyword">if</span> (update_feed_via($type, $name, $feedsrc, $force_relocate, $force_update) != <span class="number">0</span>) {
-            <span class="keyword">if</span> ($force_update) {
-                $rv=<span class="number">1</span>;
-                $failed=<span class="number">0</span>;
-                <span class="keyword">warn</span> <span class="string">"failed, ignore.\n"</span>;
-                <span class="keyword">next</span>;
-            }
-            <span class="keyword">last</span>;
-        }
-        $failed = <span class="number">0</span>;
-    }
+$ tree 
+.
+├── README
+└── test
+    └── README
 
-    <span class="comment"># 创建 index 索引表(软链接到xxx.tmp/.packageinfo)，这个函数执行了include/scan.mk，并</span>
-    update_index($name) == <span class="number">0</span>；
-}
-</code></pre>
-<p>update_index 函数代码段：  </p>
-<pre><code class="perl"><span class="function"><span class="keyword">sub</span> <span class="title">update_index</span>($)</span>
-<span class="function"></span>{
-    <span class="keyword">my</span> $name = <span class="keyword">shift</span>;
-
-    -d <span class="string">"./feeds/$name.tmp"</span> <span class="keyword">or</span> <span class="keyword">mkdir</span> <span class="string">"./feeds/$name.tmp"</span> <span class="keyword">or</span> <span class="keyword">return</span> <span class="number">1</span>;
-    -d <span class="string">"./feeds/$name.tmp/info"</span> <span class="keyword">or</span> <span class="keyword">mkdir</span> <span class="string">"./feeds/$name.tmp/info"</span> <span class="keyword">or</span> <span class="keyword">return</span> <span class="number">1</span>;
-
-    <span class="keyword">system</span>(<span class="string">"$mk -s prepare-mk OPENWRT_BUILD= TMP_DIR=\"$ENV{TOPDIR}/feeds/$name.tmp\""</span>);
-    <span class="keyword">system</span>(<span class="string">"$mk -s -f include/scan.mk IS_TTY=1 SCAN_TARGET=\"packageinfo\" SCAN_DIR=\"feeds/$name\" SCAN_NAME=\"package\" SCAN_DEPS=\"$ENV{TOPDIR}/include/package*.mk\" SCAN_DEPTH=5 SCAN_EXTRA=\"\" TMP_DIR=\"$ENV{TOPDIR}/feeds/$name.tmp\""</span>);
-    <span class="keyword">system</span>(<span class="string">"$mk -s -f include/scan.mk IS_TTY=1 SCAN_TARGET=\"targetinfo\" SCAN_DIR=\"feeds/$name\" SCAN_NAME=\"target\" SCAN_DEPS=\"profiles/*.mk $ENV{TOPDIR}/include/target.mk\" SCAN_DEPTH=5 SCAN_EXTRA=\"\" SCAN_MAKEOPTS=\"TARGET_BUILD=1\" TMP_DIR=\"$ENV{TOPDIR}/feeds/$name.tmp\""</span>);
-    <span class="keyword">system</span>(<span class="string">"ln -sf $name.tmp/.packageinfo ./feeds/$name.index"</span>);
-    <span class="keyword">system</span>(<span class="string">"ln -sf $name.tmp/.targetinfo ./feeds/$name.targetindex"</span>);
-
-    <span class="keyword">return</span> <span class="number">0</span>;
-}
-</code></pre>
-<p>feeds软链接的情况：  </p>
-<pre><code>kyson@gl-inet:~/workspace/devlop/gli/openwrt-cc$ ls -l feeds/
-total 56
-drwxrwxr-x 11 kyson kyson 4096 11月 16 17:19 luci
-lrwxrwxrwx  1 kyson kyson   21 11月 16 17:19 luci.index -&gt; luci.tmp/.packageinfo
-lrwxrwxrwx  1 kyson kyson   20 11月 16 17:19 luci.targetindex -&gt; luci.tmp/.targetinfo
-drwxrwxr-x  3 kyson kyson 4096 11月 16 17:19 luci.tmp
-drwxrwxr-x 14 kyson kyson 4096 11月 16 17:19 management
-lrwxrwxrwx  1 kyson kyson   27 11月 16 17:19 management.index -&gt; management.tmp/.packageinfo
-lrwxrwxrwx  1 kyson kyson   26 11月 16 17:19 management.targetindex -&gt; management.tmp/.targetinfo
-drwxrwxr-x  3 kyson kyson 4096 11月 16 17:19 management.tmp
-drwxrwxr-x 14 kyson kyson 4096 11月 16 17:19 oldpackages
-lrwxrwxrwx  1 kyson kyson   28 11月 16 17:20 oldpackages.index -&gt; oldpackages.tmp/.packageinfo
-lrwxrwxrwx  1 kyson kyson   27 11月 16 17:20 oldpackages.targetindex -&gt; oldpackages.tmp/.targetinfo
-drwxrwxr-x  3 kyson kyson 4096 11月 16 17:20 oldpackages.tmp
-drwxrwxr-x 14 kyson kyson 4096 11月 16 17:19 packages
-lrwxrwxrwx  1 kyson kyson   25 11月 16 17:19 packages.index -&gt; packages.tmp/.packageinfo
-lrwxrwxrwx  1 kyson kyson   24 11月 16 17:19 packages.targetindex -&gt; packages.tmp/.targetinfo
-drwxrwxr-x  3 kyson kyson 4096 11月 16 17:19 packages.tmp
-drwxrwxr-x 36 kyson kyson 4096 11月 16 17:19 routing
-lrwxrwxrwx  1 kyson kyson   24 11月 16 17:19 routing.index -&gt; routing.tmp/.packageinfo
-lrwxrwxrwx  1 kyson kyson   23 11月 16 17:19 routing.targetindex -&gt; routing.tmp/.targetinfo
-drwxrwxr-x  3 kyson kyson 4096 11月 16 17:19 routing.tmp
-drwxrwxr-x  5 kyson kyson 4096 11月 16 17:19 shadowsocks
-lrwxrwxrwx  1 kyson kyson   28 11月 16 17:19 shadowsocks.index -&gt; shadowsocks.tmp/.packageinfo
-lrwxrwxrwx  1 kyson kyson   27 11月 16 17:19 shadowsocks.targetindex -&gt; shadowsocks.tmp/.targetinfo
-drwxrwxr-x  3 kyson kyson 4096 11月 16 17:19 shadowsocks.tmp
-drwxrwxr-x  5 kyson kyson 4096 11月 16 17:19 telephony
-lrwxrwxrwx  1 kyson kyson   26 11月 16 17:19 telephony.index -&gt; telephony.tmp/.packageinfo
-lrwxrwxrwx  1 kyson kyson   25 11月 16 17:19 telephony.targetindex -&gt; telephony.tmp/.targetinfo
-drwxrwxr-x  3 kyson kyson 4096 11月 16 17:19 telephony.tmp
-</code></pre><h2 id="Feeds-install"><a href="#Feeds-install" class="headerlink" title="Feeds install"></a>Feeds install</h2><p>install 函数代码段：  </p>
-<pre><code class="perl"><span class="function"><span class="keyword">sub</span> <span class="title">install</span>() </span>{
-    <span class="comment"># 解析参数</span>
-    <span class="comment"># -a : Install all packages from all feeds or from the specified feed using the -p option. ==&gt; 安装所有软件包</span>
-    <span class="comment"># -p &lt;feedname&gt;: Prefer this feed when installing packages. ==&gt; 指定安装包</span>
-    <span class="comment"># -d &lt;y|m|n&gt;: Set default for newly installed packages. ==&gt; 使能安装软件包开关</span>
-    <span class="comment"># -f : Install will be forced even if the package exists in core OpenWrt (override)</span>
-
-    <span class="comment"># 这个函数调用 metadata.pm 模块包，把 ./tmp/.packageinfo 和 ./tmp/.targetinfo 包信息转换成 hash 结构，获取所有已安装的软件包</span>
-    get_installed();
-
-    <span class="comment"># 缓存</span>
-    <span class="keyword">foreach</span> <span class="keyword">my</span> $f (@feeds) {
-        <span class="comment"># fetch all feeds</span>
-        get_feed($f-&gt;[<span class="number">1</span>]);
-
-        <span class="comment"># look up the preferred feed</span>
-        $opts<span class="string">{p}</span> <span class="keyword">and</span> $f-&gt;[<span class="number">1</span>] eq $opts<span class="string">{p}</span> <span class="keyword">and</span> $feed = $f;
-    }
-
-    <span class="comment"># 如果指定 -a，则进入这个逻辑，遍历所有软件包</span>
-    <span class="keyword">if</span>($opts<span class="string">{a}</span>) {
-            <span class="keyword">foreach</span> <span class="keyword">my</span> $f (@feeds) {
-                <span class="comment"># 没有指定 -p，或者 -p 指定的软件包名与存储在 @feeds 的软件包一致，进入这个逻辑，否则 next</span>
-                <span class="keyword">if</span> (!<span class="keyword">defined</span>($opts<span class="string">{p}</span>) <span class="keyword">or</span> $opts<span class="string">{p}</span> eq $f-&gt;[<span class="number">1</span>]) {
-                    <span class="keyword">printf</span> <span class="string">"Installing all packages from feed %s.\n"</span>, $f-&gt;[<span class="number">1</span>];
-                    get_feed($f-&gt;[<span class="number">1</span>]);
-                    <span class="comment"># get_feed 函数会把遍历的软件包保存到缓存，$feed_package 保存的是 %pacakge hash结构，这里是遍历所有的软件包以及子包</span>
-                    <span class="keyword">foreach</span> <span class="keyword">my</span> $name (<span class="keyword">sort</span> { <span class="keyword">lc</span>($a) cmp <span class="keyword">lc</span>($b) } <span class="keyword">keys</span> %$feed_package) {
-                        <span class="keyword">my</span> $p = $feed_package-&gt;{$name};
-                        <span class="keyword">next</span> <span class="keyword">if</span> $p-&gt;{vdepends};
-                        <span class="keyword">if</span>( $p-&gt;{name} ) {
-                            <span class="comment"># 安装软件包</span>
-                            install_package($feed, $p-&gt;{name}, <span class="keyword">exists</span>($opts<span class="string">{f}</span>)) == <span class="number">0</span> <span class="keyword">or</span> $ret = <span class="number">1</span>;
-                            get_feed($f-&gt;[<span class="number">1</span>]);
-                        }
-                    }
-                }
-            }
-        } <span class="keyword">else</span> {
-            <span class="comment"># 如果不指定 -a，进入这个逻辑，直接安装指定的软件包</span>
-            <span class="keyword">while</span> ($name = <span class="keyword">shift</span> @ARGV) {
-                install_package($feed, $name, <span class="keyword">exists</span>($opts<span class="string">{f}</span>)) == <span class="number">0</span> <span class="keyword">or</span> $ret = <span class="number">1</span>;
-            }
-    }
-}
-</code></pre>
-<p>get_installed 函数代码段：  </p>
-<pre><code class="perl"><span class="function"><span class="keyword">sub</span> <span class="title">get_installed</span>() </span>{
-    <span class="keyword">system</span>(<span class="string">"$mk -s prepare-tmpinfo OPENWRT_BUILD="</span>);
-    clear_packages();
-    parse_package_metadata(<span class="string">"./tmp/.packageinfo"</span>);
-    %installed = %package;
-    %installed_targets = get_targets(<span class="string">"./tmp/.targetinfo"</span>);
-}
-</code></pre>
-<p>get_feed 函数代码段：  </p>
-<pre><code class="perl"><span class="function"><span class="keyword">sub</span> <span class="title">get_feed</span>() </span>{
-    <span class="comment"># 存储包信息到缓存</span>
-    <span class="keyword">if</span> (!<span class="keyword">defined</span>($feed_cache{$feed})) {
-        <span class="keyword">my</span> $file = <span class="string">"./feeds/$feed.index"</span>;
-
-        clear_packages();
-        -f $file <span class="keyword">or</span> <span class="keyword">do</span> {
-            <span class="keyword">print</span> <span class="string">"Ignoring feed '$feed' - index missing\n"</span>;
-            <span class="keyword">return</span>;
-        };
-        parse_package_metadata($file) <span class="keyword">or</span> <span class="keyword">return</span>;
-        <span class="keyword">my</span> %target = get_targets(<span class="string">"./feeds/$feed.targetindex"</span>);
-
-        <span class="comment"># 把信息结构存储到缓存</span>
-        $feed_cache{$feed} = [ { %package }, { %srcpackage }, { %target } ];
-    }
-
-    <span class="comment"># 提取相应的信息</span>
-    $feed_package = $feed_cache{$feed}-&gt;[<span class="number">0</span>];
-    $feed_src = $feed_cache{$feed}-&gt;[<span class="number">1</span>];
-    $feed_target = $feed_cache{$feed}-&gt;[<span class="number">2</span>];
-    <span class="keyword">return</span> $feed_cache{$feed}-&gt;[<span class="number">0</span>];
-}
-</code></pre>
-<p>install_package 函数代码段：  </p>
-<pre><code class="perl"><span class="function"><span class="keyword">sub</span> <span class="title">install_package</span>() </span>{
-    <span class="keyword">my</span> $this_feed_target = lookup_target($feed, $name);
-    $feed = lookup_package($feed, $name);
-
-    <span class="comment"># switch to the metadata for the selected feed</span>
-    <span class="keyword">my</span> $cur = get_feed($feed-&gt;[<span class="number">1</span>]);
-
-    <span class="comment"># is_core_package 函数检查软件包是不是核心包，通过检查临时标志文件判别： tmp/info/.packageinfo-feeds_xxx_$package 这种标志除外的软件包视为核心包</span>
-    <span class="comment"># If it's a core package and we don't want to override, just return</span>
-    !$force <span class="keyword">and</span> is_core_package($src) <span class="keyword">and</span> <span class="keyword">return</span> <span class="number">0</span>;
-
-    <span class="comment"># 判断是否满足覆盖条件</span>
-    <span class="keyword">my</span> $override = <span class="number">1</span> <span class="keyword">if</span> ($force <span class="keyword">and</span> is_core_package($src) <span class="keyword">and</span> !$installed{$name}-&gt;{feed});
-
-    <span class="comment"># 已安装，并且不覆盖，就直接返回</span>
-    <span class="comment"># check previously installed packages</span>
-    $installed{$name} <span class="keyword">and</span> !$override <span class="keyword">and</span> <span class="keyword">return</span> <span class="number">0</span>;
-    $installed{$src} = <span class="number">1</span>;
-
-    <span class="comment"># 安装软件包，其实就是创建软链接到 package/feeds/xxx</span>
-    do_install_package($feed, $pkg) == <span class="number">0</span> <span class="keyword">or</span> <span class="keyword">do</span> {
-        <span class="keyword">warn</span> <span class="string">"failed.\n"</span>;
-        <span class="keyword">return</span> <span class="number">1</span>;
-    };
-
-    <span class="comment"># 安装依赖软件包</span>
-    <span class="comment"># install all dependencies referenced from the source package</span>
-    <span class="keyword">foreach</span> <span class="keyword">my</span> $vpkg (@{$feed_src-&gt;{$src}}) {
-        <span class="keyword">foreach</span> <span class="keyword">my</span> $dep (@{$vpkg-&gt;{depends}}, @{$vpkg-&gt;{builddepends}}, @{$vpkg-&gt;{<span class="string">"builddepends/host"</span>}}) {
-            <span class="keyword">next</span> <span class="keyword">if</span> $dep =~ <span class="regexp">/@/</span>;
-            $dep =~ <span class="regexp">s/^\+//</span>;
-            $dep =~ <span class="regexp">s/^.+://</span>;
-            $dep =~ <span class="regexp">s/\/.+$//</span>;
-            <span class="keyword">next</span> <span class="keyword">unless</span> $dep;
-            install_package($feed, $dep, <span class="number">0</span>) == <span class="number">0</span> <span class="keyword">or</span> $ret = <span class="number">1</span>;
-        }
-    }
-}
-</code></pre>
-<p>do_install_package 函数代码段：  </p>
-<pre><code>sub do_install_package($$) {
-    my $feed = shift;
-    my $pkg = shift;
-    my $path = $pkg-&gt;{makefile};
-
-    if($path) {
-        $path =~ s/\/Makefile$//;
-
-        -d &quot;./package/feeds&quot; or mkdir &quot;./package/feeds&quot;;
-        -d &quot;./package/feeds/$feed-&gt;[1]&quot; or mkdir &quot;./package/feeds/$feed-&gt;[1]&quot;;
-        system(&quot;ln -sf ../../../$path ./package/feeds/$feed-&gt;[1]/&quot;);
-    } else {
-        warn &quot;Package is not valid\n&quot;;
-        return 1;
-    }
-
-    return 0;
-}
-</code></pre>
+1 directory, 2 files
+</code></pre><p>我们可以在克隆的时候加上 –recursive 参数，它会自动初始化和更新工程的 submodule。  </p>
+<pre><code>$ git clone --recursive git@192.168.16.16:luoweilong/main_test.git
+</code></pre><h2 id="Working-on-a-Project-with-Submodules"><a href="#Working-on-a-Project-with-Submodules" class="headerlink" title="Working on a Project with Submodules"></a>Working on a Project with Submodules</h2>
       
     </div>
     
@@ -681,9 +501,7 @@ drwxrwxr-x  3 kyson kyson 4096 11月 16 17:19 telephony.tmp
       
         <div class="post-tags">
           
-            <a href="/tags/OpenWrt/" rel="tag"><i class="fa fa-tag"></i> OpenWrt</a>
-          
-            <a href="/tags/LEDE/" rel="tag"><i class="fa fa-tag"></i> LEDE</a>
+            <a href="/tags/git/" rel="tag"><i class="fa fa-tag"></i> git</a>
           
         </div>
       
@@ -696,8 +514,8 @@ drwxrwxr-x  3 kyson kyson 4096 11月 16 17:19 telephony.tmp
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/515db561/" rel="next" title="Python - Coding Style">
-                <i class="fa fa-chevron-left"></i> Python - Coding Style
+              <a href="/posts/6da41d62/" rel="next" title="OpenWrt - Feeds Script">
+                <i class="fa fa-chevron-left"></i> OpenWrt - Feeds Script
               </a>
             
           </div>
@@ -705,10 +523,6 @@ drwxrwxr-x  3 kyson kyson 4096 11月 16 17:19 telephony.tmp
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/posts/fe519d8/" rel="prev" title="Git Tools - Submodules">
-                Git Tools - Submodules <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -860,7 +674,7 @@ drwxrwxr-x  3 kyson kyson 4096 11月 16 17:19 telephony.tmp
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#How-feeds-works"><span class="nav-number">1.</span> <span class="nav-text">How feeds works</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Feeds-Command-option"><span class="nav-number">1.1.</span> <span class="nav-text">Feeds Command option</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Feeds-Update"><span class="nav-number">1.2.</span> <span class="nav-text">Feeds Update</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Feeds-install"><span class="nav-number">1.3.</span> <span class="nav-text">Feeds install</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-嵌套"><span class="nav-number">1.</span> <span class="nav-text">Git 嵌套</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview"><span class="nav-number">1.1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Starting-with-Submodules"><span class="nav-number">1.2.</span> <span class="nav-text">Starting with Submodules</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cloning-a-Project-with-Submodules"><span class="nav-number">1.3.</span> <span class="nav-text">Cloning a Project with Submodules</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Working-on-a-Project-with-Submodules"><span class="nav-number">1.4.</span> <span class="nav-text">Working on a Project with Submodules</span></a></li></ol></li></ol></div>
             
 
           </div>
