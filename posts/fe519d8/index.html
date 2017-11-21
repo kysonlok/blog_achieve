@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="KYSON | HOME">
 <meta property="og:description" content="Git 嵌套Overview我们的工程可能需要用到第三方的库，以前我们一般都是通过引用动态库或者直接拷贝依赖库的源码到当前工程源码树，这样很难保证所有的客户端使用同一版本的动态库，并且一旦修改了库的内容，我们没有办法把新的 changes 合并进来。Git 提供了 submodules 解决了这个问题，它允许 git repository 嵌套子 git repository。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-21T06:20:48.352Z">
+<meta property="og:updated_time" content="2017-11-21T07:20:35.063Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git Tools - Submodules">
 <meta name="twitter:description" content="Git 嵌套Overview我们的工程可能需要用到第三方的库，以前我们一般都是通过引用动态库或者直接拷贝依赖库的源码到当前工程源码树，这样很难保证所有的客户端使用同一版本的动态库，并且一旦修改了库的内容，我们没有办法把新的 changes 合并进来。Git 提供了 submodules 解决了这个问题，它允许 git repository 嵌套子 git repository。">
@@ -484,7 +484,51 @@ $ tree
 1 directory, 2 files
 </code></pre><p>我们可以在克隆的时候加上 –recursive 参数，它会自动初始化和更新工程的 submodule。  </p>
 <pre><code>$ git clone --recursive git@192.168.16.16:luoweilong/main_test.git
-</code></pre><h2 id="Working-on-a-Project-with-Submodules"><a href="#Working-on-a-Project-with-Submodules" class="headerlink" title="Working on a Project with Submodules"></a>Working on a Project with Submodules</h2>
+</code></pre><h2 id="Working-on-a-Project-with-Submodules"><a href="#Working-on-a-Project-with-Submodules" class="headerlink" title="Working on a Project with Submodules"></a>Working on a Project with Submodules</h2><h3 id="Publishing-Submodule-Changes"><a href="#Publishing-Submodule-Changes" class="headerlink" title="Publishing Submodule Changes"></a>Publishing Submodule Changes</h3><p>首先我们需要进入 submodule 目录，切换到需要更改的分支，然后更新代码，以 test 的 master分支为例：  </p>
+<pre><code>$ cd test/
+$ git branch --remote
+  origin/HEAD -&gt; origin/master
+  origin/master
+
+$ git branch 
+* (HEAD detached at 3d9f6ed)
+  master
+
+$ git checkout master
+$ git submodule update --remote --merge
+</code></pre><p>进入 submodule 目录修改 repo 内容，然后 commit：  </p>
+<pre><code>$ cd test/
+$ vi test.c
+$ git add .
+$ git commit -m &quot;add test.c&quot;
+</code></pre><p>切换回到 main_test，提交 commit，然后递归子模块 push：  </p>
+<pre><code>$ cd ../
+$ git add .
+$ git commit &quot;modify submodule&quot;
+$ git push --recurse-submodules=on-demand
+Pushing submodule &apos;test&apos;
+Counting objects: 3, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 286 bytes | 0 bytes/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To git@192.168.16.16:luoweilong/test.git
+   3d9f6ed..7d4593b  master -&gt; master
+Counting objects: 2, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 241 bytes | 0 bytes/s, done.
+Total 2 (delta 1), reused 0 (delta 0)
+To git@192.168.16.16:luoweilong/main_test.git
+   051b3eb..3bf539b  master -&gt; master
+</code></pre><p>我们可以看到，test repo 和 main_test repo 都 push 了。</p>
+<p>为了简化 <code>git push</code>，可以把它写到配置：  </p>
+<pre><code>$ git config push.recurseSubmodules on-demand
+$ git push
+</code></pre><h3 id="Pulling-in-Upstream-Changes"><a href="#Pulling-in-Upstream-Changes" class="headerlink" title="Pulling in Upstream Changes"></a>Pulling in Upstream Changes</h3><p>更新主工程，在更新 submodule：  </p>
+<pre><code>$ git pull 
+$ git submodule update
+</code></pre>
       
     </div>
     
@@ -674,7 +718,7 @@ $ tree
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-嵌套"><span class="nav-number">1.</span> <span class="nav-text">Git 嵌套</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview"><span class="nav-number">1.1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Starting-with-Submodules"><span class="nav-number">1.2.</span> <span class="nav-text">Starting with Submodules</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cloning-a-Project-with-Submodules"><span class="nav-number">1.3.</span> <span class="nav-text">Cloning a Project with Submodules</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Working-on-a-Project-with-Submodules"><span class="nav-number">1.4.</span> <span class="nav-text">Working on a Project with Submodules</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-嵌套"><span class="nav-number">1.</span> <span class="nav-text">Git 嵌套</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview"><span class="nav-number">1.1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Starting-with-Submodules"><span class="nav-number">1.2.</span> <span class="nav-text">Starting with Submodules</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cloning-a-Project-with-Submodules"><span class="nav-number">1.3.</span> <span class="nav-text">Cloning a Project with Submodules</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Working-on-a-Project-with-Submodules"><span class="nav-number">1.4.</span> <span class="nav-text">Working on a Project with Submodules</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Publishing-Submodule-Changes"><span class="nav-number">1.4.1.</span> <span class="nav-text">Publishing Submodule Changes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pulling-in-Upstream-Changes"><span class="nav-number">1.4.2.</span> <span class="nav-text">Pulling in Upstream Changes</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
