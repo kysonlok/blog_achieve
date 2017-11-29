@@ -97,14 +97,14 @@
 <meta name="description" content="PresentationOpenWrt 缺省控制 DHCP 的进程如下：    udhcpc - DHCP IPV4 client   odhcp6c - DHCP IPV6 client   DNSmasq - DHCP IPV4 server   odhcpd - DHCP IPV6 server">
 <meta name="keywords" content="OpenWrt,LEDE">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OpenWrt DHCP - Udhcpc">
+<meta property="og:title" content="OpenWrt - How DHCP Client Work">
 <meta property="og:url" content="http://yoursite.com/posts/4d5e1cf/index.html">
 <meta property="og:site_name" content="KYSON | HOME">
 <meta property="og:description" content="PresentationOpenWrt 缺省控制 DHCP 的进程如下：    udhcpc - DHCP IPV4 client   odhcp6c - DHCP IPV6 client   DNSmasq - DHCP IPV4 server   odhcpd - DHCP IPV6 server">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-08T01:30:47.385Z">
+<meta property="og:updated_time" content="2017-11-29T16:41:50.672Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OpenWrt DHCP - Udhcpc">
+<meta name="twitter:title" content="OpenWrt - How DHCP Client Work">
 <meta name="twitter:description" content="PresentationOpenWrt 缺省控制 DHCP 的进程如下：    udhcpc - DHCP IPV4 client   odhcp6c - DHCP IPV6 client   DNSmasq - DHCP IPV4 server   odhcpd - DHCP IPV6 server">
 
 
@@ -141,7 +141,7 @@
 
 
 
-  <title>OpenWrt DHCP - Udhcpc | KYSON | HOME</title>
+  <title>OpenWrt - How DHCP Client Work | KYSON | HOME</title>
   
 
 
@@ -319,7 +319,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">OpenWrt DHCP - Udhcpc</h1>
+          <h1 class="post-title" itemprop="name headline">OpenWrt - How DHCP Client Work</h1>
         
 
         <div class="post-meta">
@@ -441,7 +441,7 @@
 </code></pre>
 <p>proto_run_command 函数就是初始化了json object，往 json object 添加了 string 类型的 action 和 array 类型的 command 字段，把传进来的参数全部填充到 command array中，最后调用了_proto_notify。  </p>
 <p>_proto_notify 函数代码段：  </p>
-<pre><code class="bash"><span class="function"><span class="title">_proto_notify</span></span>() {
+<pre><code class="bash"><span class="function">_proto_notify</span>() {
     <span class="built_in">local</span> interface=<span class="string">"<span class="variable">$1</span>"</span>
     <span class="built_in">local</span> options=<span class="string">"<span class="variable">$2</span>"</span>
     json_add_string <span class="string">"interface"</span> <span class="string">"<span class="variable">$interface</span>"</span>
@@ -493,7 +493,7 @@
 <font color="#FF0000">注意：这里只是为了演示过程，实际上不能直接调用的。</font>  
 
 <p>proto_dhcp_renew 调用了 proto_kill_command，代码段：  </p>
-<pre><code class="bash"><span class="function"><span class="title">_proto_notify</span></span>() {
+<pre><code class="bash"><span class="function">_proto_notify</span>() {
     <span class="built_in">local</span> interface=<span class="string">"<span class="variable">$1</span>"</span>
     <span class="built_in">local</span> options=<span class="string">"<span class="variable">$2</span>"</span>
     json_add_string <span class="string">"interface"</span> <span class="string">"<span class="variable">$interface</span>"</span>
@@ -597,8 +597,8 @@ add_protocol dhcp
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/7fbfd015/" rel="next" title="OpenWrt - Build">
-                <i class="fa fa-chevron-left"></i> OpenWrt - Build
+              <a href="/posts/7fbfd015/" rel="next" title="OpenWrt - Build System">
+                <i class="fa fa-chevron-left"></i> OpenWrt - Build System
               </a>
             
           </div>
@@ -607,8 +607,8 @@ add_protocol dhcp
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/posts/f502ce40/" rel="prev" title="OpenWrt Core - Initd">
-                OpenWrt Core - Initd <i class="fa fa-chevron-right"></i>
+              <a href="/posts/f502ce40/" rel="prev" title="OpenWrt - How Initd Process Work">
+                OpenWrt - How Initd Process Work <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
