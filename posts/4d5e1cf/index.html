@@ -441,7 +441,7 @@
 </code></pre>
 <p>proto_run_command 函数就是初始化了json object，往 json object 添加了 string 类型的 action 和 array 类型的 command 字段，把传进来的参数全部填充到 command array中，最后调用了_proto_notify。  </p>
 <p>_proto_notify 函数代码段：  </p>
-<pre><code class="bash"><span class="function">_proto_notify</span>() {
+<pre><code class="bash"><span class="function"><span class="title">_proto_notify</span></span>() {
     <span class="built_in">local</span> interface=<span class="string">"<span class="variable">$1</span>"</span>
     <span class="built_in">local</span> options=<span class="string">"<span class="variable">$2</span>"</span>
     json_add_string <span class="string">"interface"</span> <span class="string">"<span class="variable">$interface</span>"</span>
@@ -493,7 +493,7 @@
 <font color="#FF0000">注意：这里只是为了演示过程，实际上不能直接调用的。</font>  
 
 <p>proto_dhcp_renew 调用了 proto_kill_command，代码段：  </p>
-<pre><code class="bash"><span class="function">_proto_notify</span>() {
+<pre><code class="bash"><span class="function"><span class="title">_proto_notify</span></span>() {
     <span class="built_in">local</span> interface=<span class="string">"<span class="variable">$1</span>"</span>
     <span class="built_in">local</span> options=<span class="string">"<span class="variable">$2</span>"</span>
     json_add_string <span class="string">"interface"</span> <span class="string">"<span class="variable">$interface</span>"</span>

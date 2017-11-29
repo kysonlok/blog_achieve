@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="Ngrok 内网渗透##Overview   工作原因，偶尔需要在家里远程访问公司的工作站(linux server)。以前使用 ssh tunnel 的方式，但是不稳定，没有重连机制，运行一段时间就挂了。后来使用 teamviewer，图形界面使用 teamviewer 是个不错的选择，但考虑到工作站是 server，并没有图形界面，teamviewer 在这里不适用，还有一点，teamview">
+<meta name="description" content="Ngrok 内网渗透Overview工作原因，偶尔需要在家里远程访问公司的工作站(linux server)。以前使用 ssh tunnel 的方式，但是不稳定，没有重连机制，运行一段时间就挂了。后来使用 teamviewer，图形界面使用 teamviewer 是个不错的选择，但考虑到工作站是 server，并没有图形界面，teamviewer 在这里不适用，还有一点，teamviewer 的密">
 <meta name="keywords" content="Ngrok">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ngrok 内网渗透">
 <meta property="og:url" content="http://yoursite.com/posts/9cf8fdeb/index.html">
 <meta property="og:site_name" content="KYSON | HOME">
-<meta property="og:description" content="Ngrok 内网渗透##Overview   工作原因，偶尔需要在家里远程访问公司的工作站(linux server)。以前使用 ssh tunnel 的方式，但是不稳定，没有重连机制，运行一段时间就挂了。后来使用 teamviewer，图形界面使用 teamviewer 是个不错的选择，但考虑到工作站是 server，并没有图形界面，teamviewer 在这里不适用，还有一点，teamview">
+<meta property="og:description" content="Ngrok 内网渗透Overview工作原因，偶尔需要在家里远程访问公司的工作站(linux server)。以前使用 ssh tunnel 的方式，但是不稳定，没有重连机制，运行一段时间就挂了。后来使用 teamviewer，图形界面使用 teamviewer 是个不错的选择，但考虑到工作站是 server，并没有图形界面，teamviewer 在这里不适用，还有一点，teamviewer 的密">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-29T16:27:10.641Z">
+<meta property="og:updated_time" content="2017-11-29T16:31:43.875Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ngrok 内网渗透">
-<meta name="twitter:description" content="Ngrok 内网渗透##Overview   工作原因，偶尔需要在家里远程访问公司的工作站(linux server)。以前使用 ssh tunnel 的方式，但是不稳定，没有重连机制，运行一段时间就挂了。后来使用 teamviewer，图形界面使用 teamviewer 是个不错的选择，但考虑到工作站是 server，并没有图形界面，teamviewer 在这里不适用，还有一点，teamview">
+<meta name="twitter:description" content="Ngrok 内网渗透Overview工作原因，偶尔需要在家里远程访问公司的工作站(linux server)。以前使用 ssh tunnel 的方式，但是不稳定，没有重连机制，运行一段时间就挂了。后来使用 teamviewer，图形界面使用 teamviewer 是个不错的选择，但考虑到工作站是 server，并没有图形界面，teamviewer 在这里不适用，还有一点，teamviewer 的密">
 
 
 
@@ -391,8 +391,7 @@
       
 
       
-        <h1 id="Ngrok-内网渗透"><a href="#Ngrok-内网渗透" class="headerlink" title="Ngrok 内网渗透"></a>Ngrok 内网渗透</h1><p>##Overview  </p>
-<p>工作原因，偶尔需要在家里远程访问公司的工作站(linux server)。以前使用 ssh tunnel 的方式，但是不稳定，没有重连机制，运行一段时间就挂了。后来使用 teamviewer，图形界面使用 teamviewer 是个不错的选择，但考虑到工作站是 server，并没有图形界面，teamviewer 在这里不适用，还有一点，teamviewer 的密码是动态生成的，也就是说一旦机器重启，即使我设置了开机启动，我也无法远程，因为此时密码已更改。再后来，就搭建了 ngrok 反向代理服务器，感觉挺好用的。  </p>
+        <h1 id="Ngrok-内网渗透"><a href="#Ngrok-内网渗透" class="headerlink" title="Ngrok 内网渗透"></a>Ngrok 内网渗透</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>工作原因，偶尔需要在家里远程访问公司的工作站(linux server)。以前使用 ssh tunnel 的方式，但是不稳定，没有重连机制，运行一段时间就挂了。后来使用 teamviewer，图形界面使用 teamviewer 是个不错的选择，但考虑到工作站是 server，并没有图形界面，teamviewer 在这里不适用，还有一点，teamviewer 的密码是动态生成的，也就是说一旦机器重启，即使我设置了开机启动，我也无法远程，因为此时密码已更改。再后来，就搭建了 ngrok 反向代理服务器，感觉挺好用的。  </p>
 <a id="more"></a>
 <h2 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h2><p>ngrok 有两个版本，v1.x 是开源的，v2.x 是闭源的。我们使用源码编译，ngrok 使用 go 语言实现，我们需要搭建 go 环境。    </p>
 <h3 id="Install-Go"><a href="#Install-Go" class="headerlink" title="Install Go"></a>Install Go</h3><pre><code>$ curl -O https://storage.googleapis.com/golang/go1.6.linux-amd64.tar.gz
@@ -627,7 +626,7 @@ tunnels:
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Ngrok-内网渗透"><span class="nav-number">1.</span> <span class="nav-text">Ngrok 内网渗透</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Prerequisites"><span class="nav-number">1.1.</span> <span class="nav-text">Prerequisites</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-Go"><span class="nav-number">1.1.1.</span> <span class="nav-text">Install Go</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Setting-Go-Paths"><span class="nav-number">1.1.2.</span> <span class="nav-text">Setting Go Paths</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Build-Ngrok"><span class="nav-number">1.2.</span> <span class="nav-text">Build Ngrok</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Clone-Ngrok"><span class="nav-number">1.2.1.</span> <span class="nav-text">Clone Ngrok</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-Keys"><span class="nav-number">1.2.2.</span> <span class="nav-text">Generate Keys</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Build-Server-and-Client"><span class="nav-number">1.2.3.</span> <span class="nav-text">Build Server and Client</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ngrok-Configuration"><span class="nav-number">1.3.</span> <span class="nav-text">Ngrok Configuration</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-Server"><span class="nav-number">1.3.1.</span> <span class="nav-text">Run Server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-Client"><span class="nav-number">1.3.2.</span> <span class="nav-text">Run Client</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Remote-SSH"><span class="nav-number">1.4.</span> <span class="nav-text">Remote SSH</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Ngrok-内网渗透"><span class="nav-number">1.</span> <span class="nav-text">Ngrok 内网渗透</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview"><span class="nav-number">1.1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prerequisites"><span class="nav-number">1.2.</span> <span class="nav-text">Prerequisites</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-Go"><span class="nav-number">1.2.1.</span> <span class="nav-text">Install Go</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Setting-Go-Paths"><span class="nav-number">1.2.2.</span> <span class="nav-text">Setting Go Paths</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Build-Ngrok"><span class="nav-number">1.3.</span> <span class="nav-text">Build Ngrok</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Clone-Ngrok"><span class="nav-number">1.3.1.</span> <span class="nav-text">Clone Ngrok</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-Keys"><span class="nav-number">1.3.2.</span> <span class="nav-text">Generate Keys</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Build-Server-and-Client"><span class="nav-number">1.3.3.</span> <span class="nav-text">Build Server and Client</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ngrok-Configuration"><span class="nav-number">1.4.</span> <span class="nav-text">Ngrok Configuration</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-Server"><span class="nav-number">1.4.1.</span> <span class="nav-text">Run Server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-Client"><span class="nav-number">1.4.2.</span> <span class="nav-text">Run Client</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Remote-SSH"><span class="nav-number">1.5.</span> <span class="nav-text">Remote SSH</span></a></li></ol></li></ol></div>
             
 
           </div>
