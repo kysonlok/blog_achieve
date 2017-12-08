@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="KYSON | HOME">
 <meta property="og:description" content="产品软件版本管理Overview基于开源工程开发产品，应该以自身产品为主导。产品有自己的软件库，自己的固件版本，企业的产品应该有良好的版本控制，对于用户或者企业内部开发人员，都能很好地跟踪不同版本 changes 或者 bug。   下面以基于 LEDE 开源工程开发路由器固件为切入点，记录我在工作中基于开源工程开发产品的版本管理。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-08T08:54:32.084Z">
+<meta property="og:updated_time" content="2017-12-08T09:29:07.314Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Product - 产品软件版本管理">
 <meta name="twitter:description" content="产品软件版本管理Overview基于开源工程开发产品，应该以自身产品为主导。产品有自己的软件库，自己的固件版本，企业的产品应该有良好的版本控制，对于用户或者企业内部开发人员，都能很好地跟踪不同版本 changes 或者 bug。   下面以基于 LEDE 开源工程开发路由器固件为切入点，记录我在工作中基于开源工程开发产品的版本管理。">
@@ -394,16 +394,46 @@
         <h1 id="产品软件版本管理"><a href="#产品软件版本管理" class="headerlink" title="产品软件版本管理"></a>产品软件版本管理</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>基于开源工程开发产品，应该以自身产品为主导。产品有自己的软件库，自己的固件版本，企业的产品应该有良好的版本控制，对于用户或者企业内部开发人员，都能很好地跟踪不同版本 changes 或者 bug。  </p>
 <p>下面以基于 LEDE 开源工程开发路由器固件为切入点，记录我在工作中基于开源工程开发产品的版本管理。  </p>
 <a id="more"></a>  
-<h2 id="release-vs-trunk"><a href="#release-vs-trunk" class="headerlink" title="release vs. trunk"></a>release vs. trunk</h2><h3 id="LEDE-Source"><a href="#LEDE-Source" class="headerlink" title="LEDE Source"></a>LEDE Source</h3><p>LEDE git repo：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">https://git.lede-project.org/source.git</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">### LEDE Branch  </span><br><span class="line"></span><br><span class="line">LEDE git repo 有两个分支：lede-17.01 和 master。其中 master 分支为开发分支，每时每刻都在更新，俗称 &quot;trunk&quot; 分支；lede17.01 为发布分支，一般只有重大的安全问题才会更新，俗称 &quot;release&quot;。  </span><br><span class="line"></span><br><span class="line">### Snapshots vs. Releases  </span><br><span class="line"></span><br><span class="line">LEDE Firmware Repository 有两个不同的分支：Stable Release builds 和 Development Snapshot builds。Downloads：  </span><br><span class="line">```  </span><br><span class="line">https://downloads.lede-project.org/releases/</span><br><span class="line">https://downloads.lede-project.org/snapshots/</span><br><span class="line">```  </span><br><span class="line"> </span><br><span class="line">## Initiate LEDE Release Repo  </span><br><span class="line"></span><br><span class="line">- Download Source  </span><br><span class="line"></span><br><span class="line">```  </span><br><span class="line">$ git clone https://git.lede-project.org/source.git</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">- View Release Info </span><br><span class="line"></span><br><span class="line">```  </span><br><span class="line">$ git tag -l</span><br><span class="line">reboot</span><br><span class="line">v17.01.0</span><br><span class="line">v17.01.0-rc1</span><br><span class="line">v17.01.0-rc2</span><br><span class="line">v17.01.1</span><br><span class="line">v17.01.2</span><br><span class="line">v17.01.3</span><br><span class="line">v17.01.4</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">- Checkout to Release  </span><br><span class="line"></span><br><span class="line">```  </span><br><span class="line">$ git branch -D lede-17.01</span><br><span class="line">$ git checkout -b lede-17.01 v17.01.4 </span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">- Replace with Owner Repo URL  </span><br><span class="line"></span><br><span class="line">```  </span><br><span class="line">$ git rm .git/config</span><br><span class="line">$ git remote add origin https://github.com/gl-inet/lede-17.01</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">- Push Release  </span><br><span class="line"></span><br><span class="line">```  </span><br><span class="line">$ git push origin lede-17.01   </span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">## Commit Changes  </span><br><span class="line"></span><br><span class="line">建议创建另一个开发分支进行开发，然后 merge 到 lede17.01.4 分支上。开发工作完成后，我们需要发布一个固件，版本为 v1.0。由于 LEDE 的 feeds 是不断更新，或者私有软件包也不断的更新，我们需要记录 v1.0 发布时所用的 feeds 或者 私有软件包的对应版本，一般都是用 git 管理，所以我们需要记录 commit 值。先提交，然后 release，再回退。</span><br></pre></td></tr></table></figure></p>
-<p>$ git commit -m “adjust config defaults”<br>$ git push origin lede17.01</p>
-<p>$ git tag v1.0 -m “GL-iNet v1.0 Release”<br>$ git push origin v1.0  </p>
-<p>$ git commit -m “revert to branch defaults”<br>$ git push origin lede17.01</p>
-<pre><code>
-## Sync Original Source  
+<h2 id="release-vs-trunk"><a href="#release-vs-trunk" class="headerlink" title="release vs. trunk"></a>release vs. trunk</h2><h3 id="LEDE-Source"><a href="#LEDE-Source" class="headerlink" title="LEDE Source"></a>LEDE Source</h3><p>LEDE git repo:  </p>
+<pre><code class="bash">https://git.lede-project.org/source.git
+</code></pre>
+<h3 id="LEDE-Branch"><a href="#LEDE-Branch" class="headerlink" title="LEDE Branch"></a>LEDE Branch</h3><p>LEDE git repo 有两个分支：lede-17.01 和 master。其中 master 分支为开发分支，每时每刻都在更新，俗称 “trunk” 分支；lede17.01 为发布分支，一般只有重大的安全问题才会更新，俗称 “release”。  </p>
+<h3 id="Snapshots-vs-Releases"><a href="#Snapshots-vs-Releases" class="headerlink" title="Snapshots vs. Releases"></a>Snapshots vs. Releases</h3><p>LEDE Firmware Repository 有两个不同的分支：Stable Release builds 和 Development Snapshot builds。Downloads：  </p>
+<pre><code>https://downloads.lede-project.org/releases/
+https://downloads.lede-project.org/snapshots/
+</code></pre><h2 id="Initiate-LEDE-Release-Repo"><a href="#Initiate-LEDE-Release-Repo" class="headerlink" title="Initiate LEDE Release Repo"></a>Initiate LEDE Release Repo</h2><h3 id="Download-Source"><a href="#Download-Source" class="headerlink" title="Download Source"></a>Download Source</h3><pre><code>$ git clone https://git.lede-project.org/source.git
+</code></pre><h3 id="View-Release-Info"><a href="#View-Release-Info" class="headerlink" title="View Release Info"></a>View Release Info</h3><pre><code>$ git tag -l
+reboot
+v17.01.0
+v17.01.0-rc1
+v17.01.0-rc2
+v17.01.1
+v17.01.2
+v17.01.3
+v17.01.4
+</code></pre><h3 id="Checkout-to-Release"><a href="#Checkout-to-Release" class="headerlink" title="Checkout to Release"></a>Checkout to Release</h3><pre><code>$ git branch -D lede-17.01
+$ git checkout -b lede-17.01 v17.01.4
+</code></pre><h3 id="Replace-with-Owner-Repo-URL"><a href="#Replace-with-Owner-Repo-URL" class="headerlink" title="Replace with Owner Repo URL"></a>Replace with Owner Repo URL</h3><pre><code>$ git rm .git/config
+$ git remote add origin https://github.com/gl-inet/lede-17.01
+</code></pre><h3 id="Push-Release"><a href="#Push-Release" class="headerlink" title="Push Release"></a>Push Release</h3><pre><code>$ git push origin lede-17.01
+</code></pre><h2 id="Commit-Changes"><a href="#Commit-Changes" class="headerlink" title="Commit Changes"></a>Commit Changes</h2><p>建议创建另一个开发分支进行开发，然后 merge 到 lede17.01.4 分支上。开发工作完成后，我们需要发布一个固件，版本为 v1.0。由于 LEDE 的 feeds 是不断更新，或者私有软件包也不断的更新，我们需要记录 v1.0 发布时所用的 feeds 或者 私有软件包的对应版本，一般都是用 git 管理，所以我们需要记录 commit 值。先提交，然后 release，再回退。  </p>
+<pre><code class="bash">$ git commit -m <span class="string">"adjust config defaults"</span>
+$ git push origin lede17.01
 
-LEDE 不断地更新，稳定版本升级到了 lede17.01.8，更新了重要的安全补丁，我们需要把它同步到我们的工程。
-</code></pre><p>$ git checkout lede-17.01<br>$ git remote add upstream <a href="https://github.com/lede-project/source.git" target="_blank" rel="external">https://github.com/lede-project/source.git</a><br>$ git fetch –prune –tags  upstream<br>$ git merge v17.01.8<br>$ git push origin lede17.01<br>$ git remote remove upstream<br>```  </p>
-<p>这个过程很有可能有代码冲突，需要手动解决冲突。</p>
+$ git tag v1.0 -m <span class="string">"GL-iNet v1.0 Release"</span>
+$ git push origin v1.0  
+
+$ git commit -m <span class="string">"revert to branch defaults"</span> 
+$ git push origin lede17.01
+</code></pre>
+<h2 id="Sync-Original-Source"><a href="#Sync-Original-Source" class="headerlink" title="Sync Original Source"></a>Sync Original Source</h2><p>LEDE 不断地更新，稳定版本升级到了 lede17.01.8，更新了重要的安全补丁，我们需要把它同步到我们的工程。  </p>
+<pre><code>$ git checkout lede-17.01
+$ git remote add upstream https://github.com/lede-project/source.git
+$ git fetch --prune --tags  upstream
+$ git merge v17.01.8
+$ git push origin lede17.01
+$ git remote remove upstream
+</code></pre><p>这个过程很有可能有代码冲突，需要手动解决冲突。</p>
 <h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><p>个人觉得软件版本管理对于企业来说，是很重要的。如果每个版本都有记录，我们可以看到每个版本都修改了些什么内容，以便 bug 追踪，也方便版本回退。</p>
 
       
@@ -597,7 +627,7 @@ LEDE 不断地更新，稳定版本升级到了 lede17.01.8，更新了重要的
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#产品软件版本管理"><span class="nav-number">1.</span> <span class="nav-text">产品软件版本管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview"><span class="nav-number">1.1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#release-vs-trunk"><span class="nav-number">1.2.</span> <span class="nav-text">release vs. trunk</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LEDE-Source"><span class="nav-number">1.2.1.</span> <span class="nav-text">LEDE Source</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Note"><span class="nav-number">1.3.</span> <span class="nav-text">Note</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#产品软件版本管理"><span class="nav-number">1.</span> <span class="nav-text">产品软件版本管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview"><span class="nav-number">1.1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#release-vs-trunk"><span class="nav-number">1.2.</span> <span class="nav-text">release vs. trunk</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LEDE-Source"><span class="nav-number">1.2.1.</span> <span class="nav-text">LEDE Source</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LEDE-Branch"><span class="nav-number">1.2.2.</span> <span class="nav-text">LEDE Branch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Snapshots-vs-Releases"><span class="nav-number">1.2.3.</span> <span class="nav-text">Snapshots vs. Releases</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Initiate-LEDE-Release-Repo"><span class="nav-number">1.3.</span> <span class="nav-text">Initiate LEDE Release Repo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Download-Source"><span class="nav-number">1.3.1.</span> <span class="nav-text">Download Source</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#View-Release-Info"><span class="nav-number">1.3.2.</span> <span class="nav-text">View Release Info</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Checkout-to-Release"><span class="nav-number">1.3.3.</span> <span class="nav-text">Checkout to Release</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Replace-with-Owner-Repo-URL"><span class="nav-number">1.3.4.</span> <span class="nav-text">Replace with Owner Repo URL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Push-Release"><span class="nav-number">1.3.5.</span> <span class="nav-text">Push Release</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Commit-Changes"><span class="nav-number">1.4.</span> <span class="nav-text">Commit Changes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sync-Original-Source"><span class="nav-number">1.5.</span> <span class="nav-text">Sync Original Source</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Note"><span class="nav-number">1.6.</span> <span class="nav-text">Note</span></a></li></ol></li></ol></div>
             
 
           </div>
