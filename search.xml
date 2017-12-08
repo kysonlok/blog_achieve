@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Product - 产品软件版本管理]]></title>
+    <url>%2Fposts%2Fba6c809a%2F</url>
+    <content type="text"><![CDATA[产品软件版本管理Overview基于开源工程开发产品，应该以自身产品为主导。产品有自己的软件库，自己的固件版本，企业的产品应该有良好的版本控制，对于用户或者企业内部开发人员，都能很好地跟踪不同版本 changes 或者 bug。 下面以基于 LEDE 开源工程开发路由器固件为切入点，记录我在工作中基于开源工程开发产品的版本管理。 release vs. trunkLEDE SourceLEDE git repo：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960https://git.lede-project.org/source.git``` ### LEDE Branch LEDE git repo 有两个分支：lede-17.01 和 master。其中 master 分支为开发分支，每时每刻都在更新，俗称 &quot;trunk&quot; 分支；lede17.01 为发布分支，一般只有重大的安全问题才会更新，俗称 &quot;release&quot;。 ### Snapshots vs. Releases LEDE Firmware Repository 有两个不同的分支：Stable Release builds 和 Development Snapshot builds。Downloads： ``` https://downloads.lede-project.org/releases/https://downloads.lede-project.org/snapshots/``` ## Initiate LEDE Release Repo - Download Source ``` $ git clone https://git.lede-project.org/source.git``` - View Release Info ``` $ git tag -lrebootv17.01.0v17.01.0-rc1v17.01.0-rc2v17.01.1v17.01.2v17.01.3v17.01.4``` - Checkout to Release ``` $ git branch -D lede-17.01$ git checkout -b lede-17.01 v17.01.4 ``` - Replace with Owner Repo URL ``` $ git rm .git/config$ git remote add origin https://github.com/gl-inet/lede-17.01``` - Push Release ``` $ git push origin lede-17.01 ``` ## Commit Changes 建议创建另一个开发分支进行开发，然后 merge 到 lede17.01.4 分支上。开发工作完成后，我们需要发布一个固件，版本为 v1.0。由于 LEDE 的 feeds 是不断更新，或者私有软件包也不断的更新，我们需要记录 v1.0 发布时所用的 feeds 或者 私有软件包的对应版本，一般都是用 git 管理，所以我们需要记录 commit 值。先提交，然后 release，再回退。 $ git commit -m “adjust config defaults”$ git push origin lede17.01 $ git tag v1.0 -m “GL-iNet v1.0 Release”$ git push origin v1.0 $ git commit -m “revert to branch defaults”$ git push origin lede17.01 ## Sync Original Source LEDE 不断地更新，稳定版本升级到了 lede17.01.8，更新了重要的安全补丁，我们需要把它同步到我们的工程。 $ git checkout lede-17.01$ git remote add upstream https://github.com/lede-project/source.git$ git fetch –prune –tags upstream$ git merge v17.01.8$ git push origin lede17.01$ git remote remove upstream``` 这个过程很有可能有代码冲突，需要手动解决冲突。 Note个人觉得软件版本管理对于企业来说，是很重要的。如果每个版本都有记录，我们可以看到每个版本都修改了些什么内容，以便 bug 追踪，也方便版本回退。]]></content>
+      <categories>
+        <category>Products</category>
+      </categories>
+      <tags>
+        <tag>Software Version</tag>
+        <tag>Products</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[How to Set Up a Web Server on Windows 7]]></title>
     <url>%2Fposts%2Fd04ff74%2F</url>
     <content type="text"><![CDATA[How to Set Up a Web Server in Windows 7Overview为了模拟 OpenWrt 的固件升级或者 opkg 软件包升级，我需要搭建一个 web server 存放静态文件。本文使用微软自带的 Internet Information Services (IIS)，搭建一个文件共享站点，支持 http 协议下载文件。 ProcedureStep 1: 开启 IIS 服务单击 “开始” 图标，选择 “控制面板”，单击 “程序”，单击程序和功能的 “打开或关闭 Windows 功能”，选择 “Internet 信息服务” 可选框，然后点击确定。 Step 2: IIS 管理单击 “开始” 图标，在搜索框输入 “IIS”，然后单击 “Internet 信息服务(IIS)管理器”。 Step 3: 站点配置a. 点击左上角的小三角展开 website 配置，如图： b. 展开 “网站”c. 右击 “Default Web Site”，选择 “添加虚拟目录”d. 填写别名和映射的物理路径，然后点击确定，就会在 “Default Web Site” 添加以别名为名称的子级 Step 4: 添加虚拟目录给新添加的虚拟目录添加 IUSR 组分配可读权限，以别名为 “lede” 为例。 a. 右击 “lede”(新添加的虚拟目录的别名)b. 单击 “编辑权限”，在弹窗找到 “安全” 并选择c. 点击 “编辑”，再点击 “添加”，再点击 “高级(A)…”，点击 “立即查找(N)”，在列表找到 “IUSR”，选择并确定，有 “应用” 按键的先点击应用再确定。 Step 5: 启用匿名访问单击 “lede”，在侧边栏找到 “身份验证”，双击它，如果匿名验证状态是禁用，点击右上角的 “启用”。 Step 6: MIME 类型a. 单击侧边栏的 “Default Web Site”b. 双击 “MIME 类型”，点击右上角的 “添加”，文件扩展名填入 “.sig”，MIME 类型填入 “application/octet-stream”，点击 “确定”c. 重复步骤 b，添加扩展名 “.”，MIME 类型为 “application/octet-stream”d. 重复步骤 b，添加扩展名 “.ipk”，MIME 类型为 “file/download” 这里根据自己的需要添加，IIS 默认关联了一些类型的静态文件，我们只需要添加里面没有我们需要的扩展名，比如我搭建的 web server 用于存储 OpenWrt 的 ipk 软件包，用于测试，所以我添加了 .ipk 和 .sig，以及没有扩展名的类型。]]></content>
