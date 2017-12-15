@@ -301,6 +301,190 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/posts/a740826d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kyson Lok">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KYSON | HOME">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/posts/a740826d/" itemprop="url">OpenWrt - How to Submit Patches</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-15T16:48:53+08:00">
+                2017-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OpenWrt/" itemprop="url" rel="index">
+                    <span itemprop="name">OpenWrt</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Submitting-Patches-to-LEDE-or-OpenWrt"><a href="#Submitting-Patches-to-LEDE-or-OpenWrt" class="headerlink" title="Submitting Patches to LEDE or OpenWrt"></a>Submitting Patches to LEDE or OpenWrt</h1><h2 id="Clone-LDED-trunk"><a href="#Clone-LDED-trunk" class="headerlink" title="Clone LDED trunk"></a>Clone LDED trunk</h2><p>Download the source code to your local host machine:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://git.lede-project.org/source.git</span><br></pre></td></tr></table></figure></p>
+<h2 id="Modify-Code"><a href="#Modify-Code" class="headerlink" title="Modify Code"></a>Modify Code</h2><p>Patches must be separated for different purpose. One commit one patch.</p>
+<p>Modifying code by your preference editor. After modified code, using git command to check changes:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">## Commit Changes  </span><br><span class="line"></span><br><span class="line">```  </span><br><span class="line">git add [the files for this commit]</span><br><span class="line">git commit -s</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">`git commit -s` command will open the git default editor and you can write the commit message. You can modify your preference editor as follow:</span><br></pre></td></tr></table></figure></p>
+<p>git config –global core.editor “vim”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Note that: If your commit message is wrong, you can use **git commit --amend** command to recovery last commit and then create a new commit with right message.  </span><br><span class="line"></span><br><span class="line">## Commit Message Format  </span><br><span class="line"></span><br><span class="line">It is important to use the correct message format for patches.</span><br><span class="line"></span><br><span class="line">The first line is the subject, and followed by an empty line then the descriptions. The commit message short description should be include the hardware and how to install LEDE on it.</span><br><span class="line">For example:</span><br></pre></td></tr></table></figure></p>
+<p>ramips: add support for GL-inet GL-MT300N-V2</p>
+<p>This patch adds supports for the GL-inet GL-MT300N-V2.</p>
+<p>Specification:</p>
+<ul>
+<li>SoC: MediaTek MT7628AN</li>
+<li>Flash: 16 MiB (W25Q128FVSG)</li>
+<li>RAM: 128 MiB DDR</li>
+<li>Ethernet: 1 x WAN (100 Mbps) and 1 x LAN (100 Mbps)</li>
+<li>USB: 1 x USB 2.0 port</li>
+<li>Button: 1 x switch button, 1 x reset button</li>
+<li>LED: 3 x LEDS</li>
+<li>UART: 1 x UART on PCB (JP1: 3.3V, RX, TX, GND)</li>
+</ul>
+<p>Installation through Luci:</p>
+<ul>
+<li>The original firmware is LEDE, so both LuCI or sysupgrade can be used.</li>
+<li>Do not keep settings, for sysupgrade please use the -n option.</li>
+</ul>
+<p>Installation through bootloader webserver:</p>
+<ul>
+<li>Plug power and hold reset button until red LED blink to bright.</li>
+<li>Install sysupgrade image using web interface on 192.168.1.1.</li>
+</ul>
+<p>Signed-off-by: your name <your email="" address=""></your></p>
+<h1 id="Please-enter-the-commit-message-for-your-changes-Lines-starting"><a href="#Please-enter-the-commit-message-for-your-changes-Lines-starting" class="headerlink" title="Please enter the commit message for your changes. Lines starting"></a>Please enter the commit message for your changes. Lines starting</h1><h1 id="with-‘-’-will-be-ignored-and-an-empty-message-aborts-the-commit"><a href="#with-‘-’-will-be-ignored-and-an-empty-message-aborts-the-commit" class="headerlink" title="with ‘#’ will be ignored, and an empty message aborts the commit."></a>with ‘#’ will be ignored, and an empty message aborts the commit.</h1><h1 id="On-branch-master"><a href="#On-branch-master" class="headerlink" title="On branch master"></a>On branch master</h1><h1 id="Your-branch-is-up-to-date-with-‘origin-master’"><a href="#Your-branch-is-up-to-date-with-‘origin-master’" class="headerlink" title="Your branch is up-to-date with ‘origin/master’."></a>Your branch is up-to-date with ‘origin/master’.</h1><p>#</p>
+<h1 id="Changes-to-be-committed"><a href="#Changes-to-be-committed" class="headerlink" title="Changes to be committed:"></a>Changes to be committed:</h1><h1 id="modified-target-linux-ramips-base-files-etc-board-d-01-leds"><a href="#modified-target-linux-ramips-base-files-etc-board-d-01-leds" class="headerlink" title="modified:   target/linux/ramips/base-files/etc/board.d/01_leds"></a>modified:   target/linux/ramips/base-files/etc/board.d/01_leds</h1><h1 id="modified-target-linux-ramips-base-files-etc-board-d-02-network"><a href="#modified-target-linux-ramips-base-files-etc-board-d-02-network" class="headerlink" title="modified:   target/linux/ramips/base-files/etc/board.d/02_network"></a>modified:   target/linux/ramips/base-files/etc/board.d/02_network</h1><h1 id="modified-target-linux-ramips-base-files-lib-ramips-sh"><a href="#modified-target-linux-ramips-base-files-lib-ramips-sh" class="headerlink" title="modified:   target/linux/ramips/base-files/lib/ramips.sh"></a>modified:   target/linux/ramips/base-files/lib/ramips.sh</h1><h1 id="modified-target-linux-ramips-base-files-lib-upgrade-platform-sh"><a href="#modified-target-linux-ramips-base-files-lib-upgrade-platform-sh" class="headerlink" title="modified:   target/linux/ramips/base-files/lib/upgrade/platform.sh"></a>modified:   target/linux/ramips/base-files/lib/upgrade/platform.sh</h1><h1 id="new-file-target-linux-ramips-dts-GL-MT300N-V2-dts"><a href="#new-file-target-linux-ramips-dts-GL-MT300N-V2-dts" class="headerlink" title="new file:   target/linux/ramips/dts/GL-MT300N-V2.dts"></a>new file:   target/linux/ramips/dts/GL-MT300N-V2.dts</h1><h1 id="modified-target-linux-ramips-image-mt7628-mk"><a href="#modified-target-linux-ramips-image-mt7628-mk" class="headerlink" title="modified:   target/linux/ramips/image/mt7628.mk"></a>modified:   target/linux/ramips/image/mt7628.mk</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">*[some automatic generally messages here, leave it as is]*</span><br><span class="line"></span><br><span class="line">## Generate patches using git</span><br><span class="line"></span><br><span class="line">You can do multiple commit before you generate the patch.</span><br><span class="line"></span><br><span class="line">Now check your commits using</span><br></pre></td></tr></table></figure>
+<p>$ git log –pretty=oneline –abbrev-commit<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Your commits appear at the beginning.</span><br><span class="line"></span><br><span class="line">Generate patches for the last 3 commits.</span><br></pre></td></tr></table></figure></p>
+<p>$ git format-patch -3 HEAD<br>$ ls<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Now you can see the patches are ready in your current folder.</span><br><span class="line"></span><br><span class="line">## Submit patches  </span><br><span class="line"></span><br><span class="line">You have to subscribe the lede-devel list before you can send email to the list. Your subscribe need to be approved but it is very fast. [development mailing list](https://lists.infradead.org/mailman/listinfo/lede-dev)  </span><br><span class="line"></span><br><span class="line">Now set up your smtp info via command line:</span><br></pre></td></tr></table></figure></p>
+<p>$ git config –global sendemail.smtpuser <your mail=""><br>$ git config –global sendemail.smtpserver smtp.googlemail.com<br>$ git config –global sendemail.smtpencryption tls<br>$ git config –global sendemail.smtpserverport 587<br>$ git config –global sendemail.confirm auto</your></p>
+<pre><code>
+Now send the patches:
+</code></pre><p>$ git send-email –to lede-dev@lists.infradead.org ./*.patch</p>
+<pre><code>
+Also, you can use **--cc** option specify a starting &quot;Cc:&quot; value for each email.  
+
+Besides, you can submit without patch file, sending the last commit with version number:
+</code></pre><p>$ git send-email -v2 -1 –to lede-dev@lists.infradead.org<br>```  </p>
+<p>Choose all in next screen to submit all the patches</p>
+<p>Due a security issue gmail ma prevent you from sending the emails.<br>Go to your gmail-&gt;account-&gt;signin<br>find “Allow less secure apps” and turn it on.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/posts/ba6c809a/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1633,155 +1817,6 @@ install base-files_173.1-r3600-18b8cfd_mips_24kc.ipk xxx.ipk ...
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/posts/b0b35cda/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Kyson Lok">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="KYSON | HOME">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/posts/b0b35cda/" itemprop="url">OpenWrt - Setup WPA2-Enterprise AP</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-08T23:15:32+08:00">
-                2017-11-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OpenWrt/" itemprop="url" rel="index">
-                    <span itemprop="name">OpenWrt</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="How-to-setup-a-FreeRadius-Server-on-OpenWrt"><a href="#How-to-setup-a-FreeRadius-Server-on-OpenWrt" class="headerlink" title="How to setup a FreeRadius Server on OpenWrt"></a>How to setup a FreeRadius Server on OpenWrt</h1><h2 id="Install-Packages"><a href="#Install-Packages" class="headerlink" title="Install Packages"></a>Install Packages</h2><pre><code># opkg update
-# opkg install freeradius2 freeradius2-mod-always freeradius2-mod-attr-filter freeradius2-mod-attr-rewrite freeradius2-mod-chap freeradius2-mod-detail freeradius2-mod-eap freeradius2-mod-eap-gtc freeradius2-mod-eap-md5 freeradius2-mod-eap-mschapv2 freeradius2-mod-eap-peap freeradius2-mod-eap-tls freeradius2-mod-eap-ttls freeradius2-mod-exec freeradius2-mod-expiration freeradius2-mod-expr freeradius2-mod-files freeradius2-mod-ldap freeradius2-mod-logintime freeradius2-mod-mschap freeradius2-mod-pap
-# opkg install freeradius2-mod-passwd freeradius2-mod-preprocess freeradius2-mod-radutmp freeradius2-mod-realm freeradius2-mod-sql freeradius2-mod-sql-mysql freeradius2-mod-sql-pgsql freeradius2-mod-sql-sqlite freeradius2-mod-sqlcounter freeradius2-mod-sqllog freeradius2-utils freeradius2-democerts
-</code></pre>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/b0b35cda/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1836,7 +1871,7 @@ install base-files_173.1-r3600-18b8cfd_mips_24kc.ipk xxx.ipk ...
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

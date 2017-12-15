@@ -83,7 +83,7 @@
 
 
 
-  <meta name="keywords" content="C,CPP," />
+  <meta name="keywords" content="OpenWrt,LEDE," />
 
 
 
@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="Basic Syntax分号C 程序中，分号表示语句的终止符。下面表示两条语句：   printf(&quot;Hello World! \n&quot;); return 0;">
-<meta name="keywords" content="C,CPP">
+<meta name="description" content="Submitting Patches to LEDE or OpenWrtClone LDED trunkDownload the source code to your local host machine:1$ git clone https://git.lede-project.org/source.git Modify CodePatches must be separated for d">
+<meta name="keywords" content="OpenWrt,LEDE">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C Language - Foundation">
-<meta property="og:url" content="http://yoursite.com/posts/6fc7a62f/index.html">
+<meta property="og:title" content="OpenWrt - How to Submit Patches">
+<meta property="og:url" content="http://yoursite.com/posts/a740826d/index.html">
 <meta property="og:site_name" content="KYSON | HOME">
-<meta property="og:description" content="Basic Syntax分号C 程序中，分号表示语句的终止符。下面表示两条语句：   printf(&quot;Hello World! \n&quot;); return 0;">
+<meta property="og:description" content="Submitting Patches to LEDE or OpenWrtClone LDED trunkDownload the source code to your local host machine:1$ git clone https://git.lede-project.org/source.git Modify CodePatches must be separated for d">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-08T01:30:47.381Z">
+<meta property="og:updated_time" content="2017-12-15T08:56:45.208Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C Language - Foundation">
-<meta name="twitter:description" content="Basic Syntax分号C 程序中，分号表示语句的终止符。下面表示两条语句：   printf(&quot;Hello World! \n&quot;); return 0;">
+<meta name="twitter:title" content="OpenWrt - How to Submit Patches">
+<meta name="twitter:description" content="Submitting Patches to LEDE or OpenWrtClone LDED trunkDownload the source code to your local host machine:1$ git clone https://git.lede-project.org/source.git Modify CodePatches must be separated for d">
 
 
 
@@ -135,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/posts/6fc7a62f/"/>
+  <link rel="canonical" href="http://yoursite.com/posts/a740826d/"/>
 
 
 
 
 
-  <title>C Language - Foundation | KYSON | HOME</title>
+  <title>OpenWrt - How to Submit Patches | KYSON | HOME</title>
   
 
 
@@ -302,7 +302,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/posts/6fc7a62f/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/posts/a740826d/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Kyson Lok">
@@ -319,7 +319,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">C Language - Foundation</h1>
+          <h1 class="post-title" itemprop="name headline">OpenWrt - How to Submit Patches</h1>
         
 
         <div class="post-meta">
@@ -331,8 +331,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-08T00:42:11+08:00">
-                2017-11-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-15T16:48:53+08:00">
+                2017-12-15
               </time>
             
 
@@ -354,8 +354,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CPP/" itemprop="url" rel="index">
-                    <span itemprop="name">CPP</span>
+                  <a href="/categories/OpenWrt/" itemprop="url" rel="index">
+                    <span itemprop="name">OpenWrt</span>
                   </a>
                 </span>
 
@@ -391,87 +391,50 @@
       
 
       
-        <h1 id="Basic-Syntax"><a href="#Basic-Syntax" class="headerlink" title="Basic Syntax"></a>Basic Syntax</h1><h2 id="分号"><a href="#分号" class="headerlink" title="分号"></a>分号</h2><p>C 程序中，分号表示语句的终止符。下面表示两条语句：  </p>
-<pre><code class="c"><span class="built_in">printf</span>(<span class="string">"Hello World! \n"</span>);
-<span class="keyword">return</span> <span class="number">0</span>;
-</code></pre>
-<a id="more"></a>
-<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p>注释是 C 代码的帮助文本，被注释的代码不会被编译器编译。C 语言支持两种注释表示，分别是单行注释和多行注释。单行注释：以 “//“ 开头，到行尾的内容被注释；多行注释：以 “/*“ 开头，并以 “*/“ 结尾，中间的内容被注释。如：  </p>
-<pre><code class="c"><span class="comment">// This is single line comment  </span>
-<span class="comment">/** </span>
-<span class="comment"> *  This is multiple lines comment</span>
-<span class="comment"> */</span>
-</code></pre>
-<h2 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h2><p>标识符是指我们为变量variable、宏macro，函数function 等取的名字，它由字母（A-Z,a-z）、数字（0-9）、下划线”_”组成，并且首字符不能是数字，但可以是字母或者下划线。有效的标识符：  </p>
-<pre><code>abc _tmp a_123
-</code></pre><h2 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h2><p>C 语言的保留字不能用作常亮、变量或任何标识符名称，关键字列表：  </p>
-<table>  
+        <h1 id="Submitting-Patches-to-LEDE-or-OpenWrt"><a href="#Submitting-Patches-to-LEDE-or-OpenWrt" class="headerlink" title="Submitting Patches to LEDE or OpenWrt"></a>Submitting Patches to LEDE or OpenWrt</h1><h2 id="Clone-LDED-trunk"><a href="#Clone-LDED-trunk" class="headerlink" title="Clone LDED trunk"></a>Clone LDED trunk</h2><p>Download the source code to your local host machine:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://git.lede-project.org/source.git</span><br></pre></td></tr></table></figure></p>
+<h2 id="Modify-Code"><a href="#Modify-Code" class="headerlink" title="Modify Code"></a>Modify Code</h2><p>Patches must be separated for different purpose. One commit one patch.</p>
+<p>Modifying code by your preference editor. After modified code, using git command to check changes:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">## Commit Changes  </span><br><span class="line"></span><br><span class="line">```  </span><br><span class="line">git add [the files for this commit]</span><br><span class="line">git commit -s</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">`git commit -s` command will open the git default editor and you can write the commit message. You can modify your preference editor as follow:</span><br></pre></td></tr></table></figure></p>
+<p>git config –global core.editor “vim”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Note that: If your commit message is wrong, you can use **git commit --amend** command to recovery last commit and then create a new commit with right message.  </span><br><span class="line"></span><br><span class="line">## Commit Message Format  </span><br><span class="line"></span><br><span class="line">It is important to use the correct message format for patches.</span><br><span class="line"></span><br><span class="line">The first line is the subject, and followed by an empty line then the descriptions. The commit message short description should be include the hardware and how to install LEDE on it.</span><br><span class="line">For example:</span><br></pre></td></tr></table></figure></p>
+<p>ramips: add support for GL-inet GL-MT300N-V2</p>
+<p>This patch adds supports for the GL-inet GL-MT300N-V2.</p>
+<p>Specification:</p>
+<ul>
+<li>SoC: MediaTek MT7628AN</li>
+<li>Flash: 16 MiB (W25Q128FVSG)</li>
+<li>RAM: 128 MiB DDR</li>
+<li>Ethernet: 1 x WAN (100 Mbps) and 1 x LAN (100 Mbps)</li>
+<li>USB: 1 x USB 2.0 port</li>
+<li>Button: 1 x switch button, 1 x reset button</li>
+<li>LED: 3 x LEDS</li>
+<li>UART: 1 x UART on PCB (JP1: 3.3V, RX, TX, GND)</li>
+</ul>
+<p>Installation through Luci:</p>
+<ul>
+<li>The original firmware is LEDE, so both LuCI or sysupgrade can be used.</li>
+<li>Do not keep settings, for sysupgrade please use the -n option.</li>
+</ul>
+<p>Installation through bootloader webserver:</p>
+<ul>
+<li>Plug power and hold reset button until red LED blink to bright.</li>
+<li>Install sysupgrade image using web interface on 192.168.1.1.</li>
+</ul>
+<p>Signed-off-by: your name <your email="" address=""></your></p>
+<h1 id="Please-enter-the-commit-message-for-your-changes-Lines-starting"><a href="#Please-enter-the-commit-message-for-your-changes-Lines-starting" class="headerlink" title="Please enter the commit message for your changes. Lines starting"></a>Please enter the commit message for your changes. Lines starting</h1><h1 id="with-‘-’-will-be-ignored-and-an-empty-message-aborts-the-commit"><a href="#with-‘-’-will-be-ignored-and-an-empty-message-aborts-the-commit" class="headerlink" title="with ‘#’ will be ignored, and an empty message aborts the commit."></a>with ‘#’ will be ignored, and an empty message aborts the commit.</h1><h1 id="On-branch-master"><a href="#On-branch-master" class="headerlink" title="On branch master"></a>On branch master</h1><h1 id="Your-branch-is-up-to-date-with-‘origin-master’"><a href="#Your-branch-is-up-to-date-with-‘origin-master’" class="headerlink" title="Your branch is up-to-date with ‘origin/master’."></a>Your branch is up-to-date with ‘origin/master’.</h1><p>#</p>
+<h1 id="Changes-to-be-committed"><a href="#Changes-to-be-committed" class="headerlink" title="Changes to be committed:"></a>Changes to be committed:</h1><h1 id="modified-target-linux-ramips-base-files-etc-board-d-01-leds"><a href="#modified-target-linux-ramips-base-files-etc-board-d-01-leds" class="headerlink" title="modified:   target/linux/ramips/base-files/etc/board.d/01_leds"></a>modified:   target/linux/ramips/base-files/etc/board.d/01_leds</h1><h1 id="modified-target-linux-ramips-base-files-etc-board-d-02-network"><a href="#modified-target-linux-ramips-base-files-etc-board-d-02-network" class="headerlink" title="modified:   target/linux/ramips/base-files/etc/board.d/02_network"></a>modified:   target/linux/ramips/base-files/etc/board.d/02_network</h1><h1 id="modified-target-linux-ramips-base-files-lib-ramips-sh"><a href="#modified-target-linux-ramips-base-files-lib-ramips-sh" class="headerlink" title="modified:   target/linux/ramips/base-files/lib/ramips.sh"></a>modified:   target/linux/ramips/base-files/lib/ramips.sh</h1><h1 id="modified-target-linux-ramips-base-files-lib-upgrade-platform-sh"><a href="#modified-target-linux-ramips-base-files-lib-upgrade-platform-sh" class="headerlink" title="modified:   target/linux/ramips/base-files/lib/upgrade/platform.sh"></a>modified:   target/linux/ramips/base-files/lib/upgrade/platform.sh</h1><h1 id="new-file-target-linux-ramips-dts-GL-MT300N-V2-dts"><a href="#new-file-target-linux-ramips-dts-GL-MT300N-V2-dts" class="headerlink" title="new file:   target/linux/ramips/dts/GL-MT300N-V2.dts"></a>new file:   target/linux/ramips/dts/GL-MT300N-V2.dts</h1><h1 id="modified-target-linux-ramips-image-mt7628-mk"><a href="#modified-target-linux-ramips-image-mt7628-mk" class="headerlink" title="modified:   target/linux/ramips/image/mt7628.mk"></a>modified:   target/linux/ramips/image/mt7628.mk</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">*[some automatic generally messages here, leave it as is]*</span><br><span class="line"></span><br><span class="line">## Generate patches using git</span><br><span class="line"></span><br><span class="line">You can do multiple commit before you generate the patch.</span><br><span class="line"></span><br><span class="line">Now check your commits using</span><br></pre></td></tr></table></figure>
+<p>$ git log –pretty=oneline –abbrev-commit<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Your commits appear at the beginning.</span><br><span class="line"></span><br><span class="line">Generate patches for the last 3 commits.</span><br></pre></td></tr></table></figure></p>
+<p>$ git format-patch -3 HEAD<br>$ ls<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Now you can see the patches are ready in your current folder.</span><br><span class="line"></span><br><span class="line">## Submit patches  </span><br><span class="line"></span><br><span class="line">You have to subscribe the lede-devel list before you can send email to the list. Your subscribe need to be approved but it is very fast. [development mailing list](https://lists.infradead.org/mailman/listinfo/lede-dev)  </span><br><span class="line"></span><br><span class="line">Now set up your smtp info via command line:</span><br></pre></td></tr></table></figure></p>
+<p>$ git config –global sendemail.smtpuser <your mail=""><br>$ git config –global sendemail.smtpserver smtp.googlemail.com<br>$ git config –global sendemail.smtpencryption tls<br>$ git config –global sendemail.smtpserverport 587<br>$ git config –global sendemail.confirm auto</your></p>
+<pre><code>
+Now send the patches:
+</code></pre><p>$ git send-email –to lede-dev@lists.infradead.org ./*.patch</p>
+<pre><code>
+Also, you can use **--cc** option specify a starting &quot;Cc:&quot; value for each email.  
 
-<table>
-<thead>
-<tr>
-<th style="text-align:center">auto</th>
-<th style="text-align:center">else</th>
-<th style="text-align:center">long</th>
-<th style="text-align:center">switch</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">break</td>
-<td style="text-align:center">enum</td>
-<td style="text-align:center">register</td>
-<td style="text-align:center">typedef</td>
-</tr>
-<tr>
-<td style="text-align:center">case</td>
-<td style="text-align:center">extern</td>
-<td style="text-align:center">return</td>
-<td style="text-align:center">union</td>
-</tr>
-<tr>
-<td style="text-align:center">char</td>
-<td style="text-align:center">float</td>
-<td style="text-align:center">short</td>
-<td style="text-align:center">unsigned</td>
-</tr>
-<tr>
-<td style="text-align:center">const</td>
-<td style="text-align:center">for</td>
-<td style="text-align:center">signed</td>
-<td style="text-align:center">void</td>
-</tr>
-<tr>
-<td style="text-align:center">continue</td>
-<td style="text-align:center">goto</td>
-<td style="text-align:center">sizeof</td>
-<td style="text-align:center">volatile</td>
-</tr>
-<tr>
-<td style="text-align:center">default</td>
-<td style="text-align:center">if</td>
-<td style="text-align:center">static</td>
-<td style="text-align:center">while</td>
-</tr>
-<tr>
-<td style="text-align:center">do</td>
-<td style="text-align:center">int</td>
-<td style="text-align:center">struct</td>
-<td style="text-align:center">_Packed</td>
-</tr>
-<tr>
-<td style="text-align:center">double</td>
-</tr>
-</tbody>
-</table>
-<h2 id="Whitespace"><a href="#Whitespace" class="headerlink" title="Whitespace"></a>Whitespace</h2><p>只有空格字符的行称为空行，C 编译器会忽略空行。C 程序中空格字符是描述空格(‘ ‘)、定位字符(‘ \t ‘)、CR(‘ \r ‘)、换行(‘ \n ‘)、垂直定位字符(‘ \v ‘)或翻页(‘ \f ‘)的术语。空格字符可以划分语句，如声明一整形变量：  </p>
-<pre><code class="c"><span class="keyword">int</span> age;
-</code></pre>
-<p>这里，int 与 age 之间必须有空格，编译器才能区分它们。另外，空格可以用于代码缩进以提高代码的可阅读性：  </p>
-<pre><code class="c">fruit = apples + oranges;
-</code></pre>
-<h1 id="Data-Types"><a href="#Data-Types" class="headerlink" title="Data Types"></a>Data Types</h1><h2 id="Integer-Types"><a href="#Integer-Types" class="headerlink" title="Integer Types"></a>Integer Types</h2><h2 id="Floating-Point-Types"><a href="#Floating-Point-Types" class="headerlink" title="Floating-Point Types"></a>Floating-Point Types</h2><h2 id="Void-Type"><a href="#Void-Type" class="headerlink" title="Void Type"></a>Void Type</h2><h1 id="Variables"><a href="#Variables" class="headerlink" title="Variables"></a>Variables</h1><h1 id="Constants"><a href="#Constants" class="headerlink" title="Constants"></a>Constants</h1><h1 id="Operators"><a href="#Operators" class="headerlink" title="Operators"></a>Operators</h1><h1 id="Decision-Making"><a href="#Decision-Making" class="headerlink" title="Decision Making"></a>Decision Making</h1><h1 id="Loops"><a href="#Loops" class="headerlink" title="Loops"></a>Loops</h1><h1 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h1><h1 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h1><h1 id="Pointers"><a href="#Pointers" class="headerlink" title="Pointers"></a>Pointers</h1><p>未完，待续！！</p>
-</table>
+Besides, you can submit without patch file, sending the last commit with version number:
+</code></pre><p>$ git send-email -v2 -1 –to lede-dev@lists.infradead.org<br>```  </p>
+<p>Choose all in next screen to submit all the patches</p>
+<p>Due a security issue gmail ma prevent you from sending the emails.<br>Go to your gmail-&gt;account-&gt;signin<br>find “Allow less secure apps” and turn it on.</p>
+
       
     </div>
     
@@ -488,9 +451,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C</a>
+            <a href="/tags/OpenWrt/" rel="tag"><i class="fa fa-tag"></i> OpenWrt</a>
           
-            <a href="/tags/CPP/" rel="tag"><i class="fa fa-tag"></i> CPP</a>
+            <a href="/tags/LEDE/" rel="tag"><i class="fa fa-tag"></i> LEDE</a>
           
         </div>
       
@@ -503,8 +466,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/2047704a/" rel="next" title="Mac80211 - Introduction">
-                <i class="fa fa-chevron-left"></i> Mac80211 - Introduction
+              <a href="/posts/ba6c809a/" rel="next" title="Product - 产品软件版本管理">
+                <i class="fa fa-chevron-left"></i> Product - 产品软件版本管理
               </a>
             
           </div>
@@ -512,10 +475,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/posts/5255e100/" rel="prev" title="Syncing Fork Repo">
-                Syncing Fork Repo <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -667,7 +626,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Basic-Syntax"><span class="nav-number">1.</span> <span class="nav-text">Basic Syntax</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分号"><span class="nav-number">1.1.</span> <span class="nav-text">分号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注释"><span class="nav-number">1.2.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标识符"><span class="nav-number">1.3.</span> <span class="nav-text">标识符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关键字"><span class="nav-number">1.4.</span> <span class="nav-text">关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Whitespace"><span class="nav-number">1.5.</span> <span class="nav-text">Whitespace</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Data-Types"><span class="nav-number">2.</span> <span class="nav-text">Data Types</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Integer-Types"><span class="nav-number">2.1.</span> <span class="nav-text">Integer Types</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Floating-Point-Types"><span class="nav-number">2.2.</span> <span class="nav-text">Floating-Point Types</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Void-Type"><span class="nav-number">2.3.</span> <span class="nav-text">Void Type</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Variables"><span class="nav-number">3.</span> <span class="nav-text">Variables</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Constants"><span class="nav-number">4.</span> <span class="nav-text">Constants</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Operators"><span class="nav-number">5.</span> <span class="nav-text">Operators</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Decision-Making"><span class="nav-number">6.</span> <span class="nav-text">Decision Making</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Loops"><span class="nav-number">7.</span> <span class="nav-text">Loops</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Function"><span class="nav-number">8.</span> <span class="nav-text">Function</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Array"><span class="nav-number">9.</span> <span class="nav-text">Array</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pointers"><span class="nav-number">10.</span> <span class="nav-text">Pointers</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Submitting-Patches-to-LEDE-or-OpenWrt"><span class="nav-number">1.</span> <span class="nav-text">Submitting Patches to LEDE or OpenWrt</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Clone-LDED-trunk"><span class="nav-number">1.1.</span> <span class="nav-text">Clone LDED trunk</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Modify-Code"><span class="nav-number">1.2.</span> <span class="nav-text">Modify Code</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Please-enter-the-commit-message-for-your-changes-Lines-starting"><span class="nav-number">2.</span> <span class="nav-text">Please enter the commit message for your changes. Lines starting</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#with-‘-’-will-be-ignored-and-an-empty-message-aborts-the-commit"><span class="nav-number">3.</span> <span class="nav-text">with ‘#’ will be ignored, and an empty message aborts the commit.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#On-branch-master"><span class="nav-number">4.</span> <span class="nav-text">On branch master</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Your-branch-is-up-to-date-with-‘origin-master’"><span class="nav-number">5.</span> <span class="nav-text">Your branch is up-to-date with ‘origin/master’.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Changes-to-be-committed"><span class="nav-number">6.</span> <span class="nav-text">Changes to be committed:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#modified-target-linux-ramips-base-files-etc-board-d-01-leds"><span class="nav-number">7.</span> <span class="nav-text">modified:   target/linux/ramips/base-files/etc/board.d/01_leds</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#modified-target-linux-ramips-base-files-etc-board-d-02-network"><span class="nav-number">8.</span> <span class="nav-text">modified:   target/linux/ramips/base-files/etc/board.d/02_network</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#modified-target-linux-ramips-base-files-lib-ramips-sh"><span class="nav-number">9.</span> <span class="nav-text">modified:   target/linux/ramips/base-files/lib/ramips.sh</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#modified-target-linux-ramips-base-files-lib-upgrade-platform-sh"><span class="nav-number">10.</span> <span class="nav-text">modified:   target/linux/ramips/base-files/lib/upgrade/platform.sh</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#new-file-target-linux-ramips-dts-GL-MT300N-V2-dts"><span class="nav-number">11.</span> <span class="nav-text">new file:   target/linux/ramips/dts/GL-MT300N-V2.dts</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#modified-target-linux-ramips-image-mt7628-mk"><span class="nav-number">12.</span> <span class="nav-text">modified:   target/linux/ramips/image/mt7628.mk</span></a></li></ol></div>
             
 
           </div>
